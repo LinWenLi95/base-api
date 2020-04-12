@@ -1,0 +1,9 @@
+#logback配置文件的地址
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.lwl.base.project.dao: debug
+spring:
+  #日志环境
+  profiles:
+    active: dev # dev|test|prd

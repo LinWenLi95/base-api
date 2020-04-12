@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.lwl</groupId>
+        <artifactId>base-dependencies</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../base-dependencies/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>base-project</artifactId>
+    <name>base-project(基础api项目)</name>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!--包含依赖：fastjson,lombok-->
+        <dependency>
+            <groupId>com.lwl</groupId>
+            <artifactId>base-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.lwl.base.project.BaseProjectApplication</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.lwl</groupId>
+                <artifactId>code-generator-maven-plugin</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <configuration>
+                    <!--项目路径,未指定则默认为System.getProperty("user.dir")-->
+                    <path>${project.basedir}</path>
+                    <!--指定配置文件,未指定则默认为src\main\resources\application.yml-->
+                    <configFilePath>src\main\resources\code-generator-config.yml</configFilePath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

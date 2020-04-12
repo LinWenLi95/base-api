@@ -1,6 +1,6 @@
 package ${codeConfig.servicePack}.impl;
 
-import com.lwl.base.code.common.mapper.BaseMapper;
+import com.lwl.base.api.common.base.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${codeConfig.beanPack}.${beanName?cap_first};

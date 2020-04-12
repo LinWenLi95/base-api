@@ -23,8 +23,8 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <lombok.version>1.18.10</lombok.version>
         <fastjson.version>1.2.62</fastjson.version>
-        <mybatis-plus.version>3.2.0</mybatis-plus.version>
-        <mysql-connector.version>8.0.18</mysql-connector.version>
+        <mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
+        <mysql-connector.version>8.0.19</mysql-connector.version>
         <hikaricp.version>3.4.1</hikaricp.version>
         <netty.resolver.version>4.1.48.Final</netty.resolver.version>
         <jedis.version>3.2.0</jedis.version>
@@ -128,11 +128,10 @@
             <!-- Commons End -->
 
             <!--DataBase Connection Begin-->
-            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus -->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>

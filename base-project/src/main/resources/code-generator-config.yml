@@ -7,7 +7,7 @@ code-generator:
     userName: root
     password: MysqL@951QwdC
   # 要生成的表名,英文逗号隔开
-  tables:
+  tables: sys_user,sys_role,sys_permission
   # code gen pack
   file-path:
     # outputBase放空则代码生成到当前项目中,不放空如:   D:\code

@@ -1,6 +1,6 @@
 package ${codeConfig.servicePack};
 
-import com.lwl.base.code.common.service.BaseService;
+import com.lwl.base.api.common.base.BaseService;
 import ${codeConfig.beanPack}.${beanName?cap_first};
 
 /**

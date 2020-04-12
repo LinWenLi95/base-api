@@ -1,6 +1,6 @@
 package ${codeConfig.daoPack};
 
-import com.lwl.base.code.common.mapper.BaseMapper;
+import com.lwl.base.api.common.base.BaseMapper;
 import ${codeConfig.beanPack}.${beanName?cap_first};
 
 /**

@@ -1,7 +1,7 @@
 package com.lwl.base.api.common.base;
 
-import com.lwl.code.generator.base.common.util.StringUtil;
-import com.lwl.code.generator.base.common.vo.Page;
+import com.lwl.base.api.common.util.StringUtil;
+import com.lwl.base.api.common.vo.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
 
@@ -98,7 +98,9 @@ public interface BaseService<T> {
             if (!StringUtils.isEmpty(orderBy) && !StringUtils.isEmpty(sort)) {
                 // 若sort值正确则将order_by字段的值由驼峰转下划线，否则移除排序参数
                 String lowerCase = sort.toLowerCase();
-                if ("asc".equals(lowerCase) || "desc".equals(lowerCase)) {
+                String asc = "asc";
+                String desc = "desc";
+                if (asc.equals(lowerCase) || desc.equals(lowerCase)) {
                     paramMap.put("order_by", StringUtil.camelCaseToUnderscore(orderBy));
                 }else {
                     paramMap.remove("order_by");

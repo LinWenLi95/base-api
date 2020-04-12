@@ -2,6 +2,9 @@ package com.lwl.base.api.common.util;
 
 import org.springframework.util.StringUtils;
 
+/**
+ * @author LinWenLi
+ */
 public class StringUtil {
 
     /**

@@ -44,4 +44,8 @@ service方法分为返回结果数据的和返回响应结果实体的
         * 调用dao方法
     * 组装响应结果（是否要放到service中组装？）
 
-
+在git bash命令行设置显示的用户名及邮箱
+git config --global user.name "usernamestr"
+git config --global user.email "**@qq.com"
+显示配置详情
+git config -l

@@ -1,7 +1,7 @@
 package com.lwl.base.project.config;
 
-import com.lwl.base.project.config.jwt.JwtAuthenticationFilter;
-import com.lwl.base.project.config.jwt.JwtAuthorizationFilter;
+import com.lwl.base.project.filter.JwtAuthenticationFilter;
+import com.lwl.base.project.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * Spring Security配置类
@@ -54,7 +53,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager()))
-                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

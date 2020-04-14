@@ -1,4 +1,4 @@
-package com.lwl.base.project.config.jwt;
+package com.lwl.base.project.filter;
 
 import com.lwl.base.project.config.SecurityConstants;
 import io.jsonwebtoken.Jwts;

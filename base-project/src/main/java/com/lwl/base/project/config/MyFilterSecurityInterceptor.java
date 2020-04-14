@@ -45,6 +45,7 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
         FilterInvocation fi = new FilterInvocation(request, response, chain);
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {
+            System.out.println("执行了一次doFilter");
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
         } finally {
             super.afterInvocation(token, null);

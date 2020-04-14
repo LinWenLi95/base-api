@@ -1,6 +1,7 @@
 package com.lwl.base.project.controller;
 
 import com.lwl.base.api.common.util.HttpRequestUtil;
+import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.api.common.vo.Page;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
@@ -24,9 +25,10 @@ public class SysUserController {
     @Autowired
     SysUserService sysUserService;
 
-    @RequestMapping("/api/admin")
+    @DeleteMapping("/api/admin")
     public Result<String> getadmin() {
-        return Result.success("admin");
+        throw new NullPointerException("aaaaaaaaaaaaaa");
+//        return Result.success("admin");
     }
 
 

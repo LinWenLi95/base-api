@@ -32,7 +32,7 @@ public class Result<T> {
         return new Result<>(resultCode, msg, data);
     }
 
-    public static <T> Result<T> getInstance(ResultCode resultCode, String msg, Class<T> t) {
+    public static <T> Result<T> getInstance(ResultCode resultCode, String msg) {
         return new Result<>(resultCode, msg,null);
     }
 
@@ -45,11 +45,11 @@ public class Result<T> {
     }
 
     public static <T> Result<T> success(ResultCode resultCode) {
-        return success(resultCode, null, null);
+        return success(resultCode, "null", null);
     }
 
     public static <T> Result<T> success(T data) {
-        return success(ResultCode.OK, null, data);
+        return success(ResultCode.OK, "null", data);
     }
 
     public static <T> Result<T> success() {
@@ -58,11 +58,11 @@ public class Result<T> {
 
     /*请求失败*/
     /**接口请求失败时并不会返回data，为了编译器不显示黄色代码警告，加上了反射类型参数，并在接口不返回指定实体时将返回类型指定为Object*/
-    public static <T> Result<T> failure(HttpStatus httpStatus, ResultCode resultCode, String msg, Class<T> t) {
-        return Result.getInstance(resultCode, msg, t);
+    public static <T> Result<T> failure(HttpStatus httpStatus, ResultCode resultCode, String msg) {
+        return Result.getInstance(resultCode, msg);
     }
 
-    public static <T> Result<T> failure(HttpStatus httpStatus, ResultCode resultCode, Class<T> t) {
-        return Result.getInstance(resultCode, null, t);
+    public static <T> Result<T> failure(HttpStatus httpStatus, ResultCode resultCode) {
+        return Result.getInstance(resultCode, null);
     }
 }

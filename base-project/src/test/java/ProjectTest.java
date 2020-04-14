@@ -1,9 +1,8 @@
+import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.project.BaseProjectApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 
-import javax.annotation.Resource;
 import java.util.Set;
 
 /**
@@ -13,18 +12,16 @@ import java.util.Set;
 @SpringBootTest(classes = BaseProjectApplication.class)
 public class ProjectTest {
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-
     @Test
     public void test() {
-        redisTemplate.opsForValue().set("abc:hahahha","def");
-        redisTemplate.opsForValue().set("abc:hghhhh","defdfdf");
-        Set<String> abc = redisTemplate.keys("abc:*");
-        assert abc != null;
+        Boolean result = RedisUtils.set("abc:hahahha", "def");
+        Boolean result2 = RedisUtils.set("abc:hghhhh","defdfdf");
+        System.out.println(RedisUtils.get("abc:hahahha"));
+        System.out.println(RedisUtils.getString("abc:hahahha"));
+        Set<String> abc = RedisUtils.keys("abc:*");
         for (String s : abc) {
             System.out.println(s);
         }
-        System.out.println(redisTemplate.opsForValue().get("abc:hahahha"));
+
     }
 }

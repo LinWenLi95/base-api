@@ -210,7 +210,7 @@
         r.update_time
         from sys_user u
         left join sys_user_role ur on ur.user_id=u.id
-        /*校验未=为 已启动，未删除的角色*/
+        -- 校验未=为 已启动，未删除的角色
         left join sys_role r on r.id=ur.role_id and r.state=1 and r.is_del=0
         where
         u.id = #{userId}

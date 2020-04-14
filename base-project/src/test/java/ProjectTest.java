@@ -1,3 +1,4 @@
+import com.lwl.base.project.BaseProjectApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -9,7 +10,7 @@ import java.util.Set;
  * @author linwenli
  * @date 2020/04/13
  */
-@SpringBootTest
+@SpringBootTest(classes = BaseProjectApplication.class)
 public class ProjectTest {
 
     @Resource

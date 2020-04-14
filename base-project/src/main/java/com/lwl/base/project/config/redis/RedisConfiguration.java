@@ -28,13 +28,17 @@ public class RedisConfiguration {
     }
 
     @Bean
-    public RedisTemplate<String, String> redisTemplate() {
-        RedisTemplate<String, String> stringRedisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> stringRedisTemplate = new RedisTemplate<>();
         stringRedisTemplate.setConnectionFactory(jedisConnectionFactory());
         // 设置key序列化和反序列化类型
-        stringRedisTemplate.setKeySerializer(new FastJsonRedisSerializer<>(String.class));
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        stringRedisTemplate.setKeySerializer(stringRedisSerializer);
+        stringRedisTemplate.setHashKeySerializer(stringRedisSerializer);
         // 设置value序列化和反序列化类型
-        stringRedisTemplate.setValueSerializer(new FastJsonRedisSerializer<>(String.class));
+        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
+        stringRedisTemplate.setValueSerializer(fastJsonRedisSerializer);
+        stringRedisTemplate.setHashValueSerializer(fastJsonRedisSerializer);
         return stringRedisTemplate;
     }
 

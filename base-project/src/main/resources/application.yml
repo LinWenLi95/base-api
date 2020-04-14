@@ -4,6 +4,9 @@ logging:
   level:
     com.lwl.base.project.dao: debug
 spring:
+  #应用名
+  application:
+    name: base-project
   #日志环境
   profiles:
     active: dev # dev|test|prd
@@ -24,6 +27,20 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+  #redis settings
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+
 mybatis:
   type-aliases-package: com.lwl.base.project.entity.pojo
   mapper-locations: classpath:mapper/*.xml

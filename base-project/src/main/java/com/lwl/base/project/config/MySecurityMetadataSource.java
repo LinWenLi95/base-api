@@ -23,7 +23,7 @@ import java.util.List;
  * @author LinWenLi
  */
 @Slf4j
-@Component
+@Component("fdfdf")
 public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     @Autowired

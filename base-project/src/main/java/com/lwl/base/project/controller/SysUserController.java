@@ -8,6 +8,7 @@ import com.lwl.base.api.common.vo.ResultCode;
 import com.lwl.base.project.entity.pojo.SysUser;
 import com.lwl.base.project.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;

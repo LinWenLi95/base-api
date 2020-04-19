@@ -74,8 +74,8 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_role (
             id,
-            name,
-            enname,
+            ch_name,
+            en_name,
             state,
             is_del,
             description,
@@ -86,8 +86,8 @@
         )
         VALUES (
             #{id},
-            #{name},
-            #{enname},
+            #{chName},
+            #{enName},
             #{state},
             #{isDel},
             #{description},
@@ -119,11 +119,11 @@
             <if test="id!=null ">
                 and id=#{id}
             </if>
-            <if test="name!=null and name!=''">
-                and name=#{name}
+            <if test="chName!=null and chName!=''">
+                and ch_name=#{chName}
             </if>
-            <if test="enname!=null and enname!=''">
-                and enname=#{enname}
+            <if test="enName!=null and enName!=''">
+                and en_name=#{enName}
             </if>
             <if test="state!=null ">
                 and state=#{state}
@@ -152,11 +152,11 @@
     <!--通用更新SQL-->
     <sql id="sqlUpdSet">
         <set>
-            <if test="name!=null and name!=''">
-                name=#{name},
+            <if test="chName!=null and chName!=''">
+                ch_name=#{chName},
             </if>
-            <if test="enname!=null and enname!=''">
-                enname=#{enname},
+            <if test="enName!=null and enName!=''">
+                en_name=#{enName},
             </if>
             <if test="state!=null ">
                 state=#{state},
@@ -185,8 +185,8 @@
     <!--所有列名（用于替代select *中的*）-->
     <sql id="allColumns">
         id,
-        name,
-        enname,
+        ch_name,
+        en_name,
         state,
         is_del,
         description,
@@ -199,8 +199,8 @@
     <select id="queryListByUserId" resultType="com.lwl.base.project.entity.pojo.SysRole">
         select
         r.id,
-        r.name,
-        r.enname,
+        r.ch_name,
+        r.en_name,
         r.state,
         r.is_del,
         r.description,
@@ -218,8 +218,8 @@
     <select id="queryListByUrl" resultType="com.lwl.base.project.entity.pojo.SysRole">
         select
         r.id,
-        r.name,
-        r.enname,
+        r.ch_name,
+        r.en_name,
         r.state,
         r.is_del,
         r.description,

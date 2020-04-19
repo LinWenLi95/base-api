@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 /**
 * 系统 权限表
 * @author LinWenLi
-* @date 2020/04/12
+* @date 2020/04/18
 */
 @Data
 public class SysPermission implements Serializable {
@@ -16,18 +16,15 @@ public class SysPermission implements Serializable {
 
     /**id*/
     private Integer id;
-    /**权限标题*/
+    /**标题*/
     private String title;
-    /**授权路径*/
+    /**url*/
     private String url;
-    /**请求类型 
-0:GET,1:POST,2:PUT,3:DELETE,4:OPTIONS,5:HEAD,6:TRACE,7:CONNECT*/
-    private Integer type;
+    /**请求类型 GET,POST,PUT,DELETE,OPTIONS,HEAD,TRACE,CONNECT*/
+    private String method;
     /**状态 0禁用,1启动*/
     private Integer state;
-    /**是否已删除*/
-    private Boolean isDel;
-    /**备注*/
+    /**描述*/
     private String description;
     /**创建者id*/
     private Integer creatorId;
@@ -37,4 +34,6 @@ public class SysPermission implements Serializable {
     private Integer updaterId;
     /**更新时间*/
     private Timestamp updateTime;
+    /**是否已删除*/
+    private Boolean isDel;
 }

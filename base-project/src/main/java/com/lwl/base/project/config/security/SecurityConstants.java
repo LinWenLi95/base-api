@@ -1,8 +1,9 @@
-package com.lwl.base.project.config;
+package com.lwl.base.project.config.security;
 
 /**
  * Security常量
  * @author LinWenLi
+ * @date 2020-04-18
  */
 public final class SecurityConstants {
     /**登录认证url*/

@@ -3,11 +3,13 @@ code-generator:
   # mysql connection
   jdbc:
     driverClass: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.106.198.29:3306/db_test?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://47.106.198.29:3306/base_api?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     userName: root
     password: MysqL@951QwdC
   # 要生成的表名,英文逗号隔开
-  tables: sys_user,sys_role,sys_permission
+  tables: sys_role_permission # sys_user,sys_role,sys_permission
+  # 要生成的代码类型：entity/dao/service/controller 使用英文逗号隔开，放空则生成全部
+  gen-code-type: entity,dao
   # code gen pack
   file-path:
     # outputBase放空则代码生成到当前项目中,不放空如:   D:\code

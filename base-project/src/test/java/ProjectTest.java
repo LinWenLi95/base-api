@@ -1,8 +1,11 @@
+import com.lwl.base.project.config.redis.RedisConstants;
 import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.project.BaseProjectApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,14 +17,15 @@ public class ProjectTest {
 
     @Test
     public void test() {
-        Boolean result = RedisUtils.set("abc:hahahha", "def");
-        Boolean result2 = RedisUtils.set("abc:hghhhh","defdfdf");
-        System.out.println(RedisUtils.get("abc:hahahha"));
-        System.out.println(RedisUtils.getString("abc:hahahha"));
-        Set<String> abc = RedisUtils.keys("abc:*");
-        for (String s : abc) {
-            System.out.println(s);
+        Set<Object> zget = RedisUtils.zget("dfd");
+        System.out.println();
+        RedisUtils.zset("role", "ROLE_ADMIN", "ROLE_USER");
+        zget = RedisUtils.zget("role");
+        Set<String> roleNameSet = new HashSet<>();
+        if (zget != null) {
+            for (Object o : zget) {
+                roleNameSet.add((String)o);
+            }
         }
-
     }
 }

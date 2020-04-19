@@ -1,6 +1,7 @@
 package com.lwl.base.project.service.impl;
 
 import com.lwl.base.api.common.base.BaseMapper;
+import com.lwl.base.project.entity.pojo.UrlRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lwl.base.project.entity.pojo.SysPermission;
@@ -40,5 +41,10 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             return sysPermissionMapper.queryByUserId(userId);
         }
         return null;
+    }
+
+    @Override
+    public List<UrlRole> queryPermissionUrlAndRoleName() {
+        return sysPermissionMapper.queryPermissionUrlAndRoleName();
     }
 }

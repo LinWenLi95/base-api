@@ -32,10 +32,6 @@ public class Result<T> {
         return new Result<>(resultCode, msg, data);
     }
 
-    public static <T> Result<T> getInstance(ResultCode resultCode, String msg) {
-        return new Result<>(resultCode, msg,null);
-    }
-
     /**请求成功*/
     public static <T> Result<T> success(ResultCode resultCode, String msg, T data) {
         if (resultCode == null) {
@@ -58,11 +54,11 @@ public class Result<T> {
 
     /*请求失败*/
     /**接口请求失败时并不会返回data，为了编译器不显示黄色代码警告，加上了反射类型参数，并在接口不返回指定实体时将返回类型指定为Object*/
-    public static <T> Result<T> failure(HttpStatus httpStatus, ResultCode resultCode, String msg) {
-        return Result.getInstance(resultCode, msg);
+    public static Result<Object> failure(ResultCode resultCode, String msg) {
+        return Result.getInstance(resultCode, msg, null);
     }
 
-    public static <T> Result<T> failure(HttpStatus httpStatus, ResultCode resultCode) {
-        return Result.getInstance(resultCode, null);
+    public static Result<Object> failure(ResultCode resultCode) {
+        return Result.getInstance(resultCode, null, null);
     }
 }

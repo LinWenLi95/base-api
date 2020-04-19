@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -106,7 +107,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获取匹配指定前缀的key集合
+     * 获取匹配指定前缀的key集合(建议使用scan进行key查找)
      * @param pattern key前缀，格式：prefix + *
      */
     public static Set<String> keys(String pattern) {
@@ -137,5 +138,26 @@ public class RedisUtils {
             return redisTemplate.delete(keys);
         }
         return 0L;
+    }
+
+    public static void hset(String key, Object hashKey, Object value) {
+        redisTemplate.opsForHash().put(key, hashKey, value);
+    }
+
+    public static Object hget(String key,Object hashKey) {
+        return redisTemplate.opsForHash().get(key, hashKey);
+    }
+
+    public static String hgetString(String key,Object hashKey) {
+        Object data = redisTemplate.opsForHash().get(key, hashKey);
+        return data == null ? null : String.valueOf(data);
+    }
+
+    public static Long zset(String key, String... values) {
+        return redisTemplate.opsForSet().add(key, values);
+    }
+
+    public static Set<Object> zget(String key) {
+        return redisTemplate.opsForSet().members(key);
     }
 }

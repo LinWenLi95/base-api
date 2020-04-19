@@ -1,43 +1,31 @@
 package com.lwl.base.project.controller;
 
 import com.lwl.base.api.common.util.HttpRequestUtil;
-import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.api.common.vo.Page;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
-import com.lwl.base.project.entity.pojo.SysUser;
-import com.lwl.base.project.service.SysUserService;
+import com.lwl.base.project.entity.pojo.SysRolePermission;
+import com.lwl.base.project.service.SysRolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 系统 用户表Controller
+ * 系统 角色-权限表Controller
  * @author LinWenLi
- * @date 2020/04/12
+ * @date 2020/04/18
  */
 @RestController
-@RequestMapping("/users")
-public class SysUserController {
+@RequestMapping("/sysRolePermission")
+public class SysRolePermissionController {
 
     @Autowired
-    SysUserService sysUserService;
-
-    @DeleteMapping("/api/admin")
-    public Result<String> getadmin() {
-        return Result.success("admin delete");
-    }
-
-    @GetMapping("/api/admin")
-    public Result<String> getadmin1() {
-        return Result.success("admin get");
-    }
+    SysRolePermissionService sysRolePermissionService;
 
 
-    /**http://localhost:8080/sysUsers?current=1&limit=10&order_by=id&sort=asc
+    /**http://localhost:8080/sysRolePermissions?current=1&limit=10&order_by=id&sort=asc
      * 查询多条数据
      * @param request 请求对象，以下请求参数：<br/>
      * T对象的属性名（可选,所有属性都可作为条件）<br/>
@@ -45,24 +33,24 @@ public class SysUserController {
      * limit 取出数量（可选，可单独使用）<br/>
      * order_by 排序字段（可选，必须与sort配合使用）<br/>
      * sort 排序方式（可选，值选填：asc|desc，必须与order_by配合使用）
-     * @return Result<Page<SysUser>>
+     * @return Result<Page<SysRolePermission>>
      */
     @GetMapping("/")
-    public Result<Page<SysUser>> queryList(HttpServletRequest request) {
+    public Result<Page<SysRolePermission>> queryList(HttpServletRequest request) {
         // 将请求参数集合取出
         Map<String, Object> parameterMap = HttpRequestUtil.getParameterMap(request);
-        Page<SysUser> page = sysUserService.queryPage(parameterMap, null);
+        Page<SysRolePermission> page = sysRolePermissionService.queryPage(parameterMap, null);
         return Result.success(page);
     }
 
     /**
      * 查询单条数据
      * @param id 主键
-     * @return Result<SysUser>
+     * @return Result<SysRolePermission>
      */
     @GetMapping("/{id}")
-    public Result<SysUser> queryOne(@PathVariable("id") Integer id) {
-        SysUser t = sysUserService.queryById(id, null);
+    public Result<SysRolePermission> queryOne(@PathVariable("id") Integer id) {
+        SysRolePermission t = sysRolePermissionService.queryById(id, null);
         return Result.success(t);
     }
 
@@ -72,10 +60,10 @@ public class SysUserController {
      * @return Result<Object>
      */
     @PostMapping("/")
-    public Result<Object> add(@RequestBody SysUser obj) {
+    public Result<Object> add(@RequestBody SysRolePermission obj) {
         Integer result = 0;
         if (obj != null) {
-            result = sysUserService.add(obj);
+            result = sysRolePermissionService.add(obj);
         }
         return result > 0 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
     }
@@ -86,10 +74,10 @@ public class SysUserController {
      * @return Result<Object>
      */
     @PutMapping("/")
-    public Result<Object> update(@RequestBody SysUser obj) {
+    public Result<Object> update(@RequestBody SysRolePermission obj) {
         Integer result = 0;
         if (obj != null) {
-            result = sysUserService.edit(obj);
+            result = sysRolePermissionService.edit(obj);
         }
         return result == 1 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
     }
@@ -103,7 +91,7 @@ public class SysUserController {
     public Result<Object> del(@PathVariable("id") Integer id) {
         Integer result = 0;
         if (id != null) {
-            result = sysUserService.remove(id);
+            result = sysRolePermissionService.remove(id);
         }
         return result == 1 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
     }

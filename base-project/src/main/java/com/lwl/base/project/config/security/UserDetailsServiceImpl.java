@@ -1,4 +1,4 @@
-package com.lwl.base.project.config.service;
+package com.lwl.base.project.config.security;
 import com.lwl.base.project.entity.pojo.SysRole;
 import com.lwl.base.project.entity.pojo.SysUser;
 import com.lwl.base.project.service.SysRoleService;
@@ -25,7 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private SysUserService sysUserService;
-
     @Autowired
     private SysRoleService sysRoleService;
 
@@ -37,11 +36,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             // 获取用户的角色列表
             List<SysRole> roles = sysRoleService.queryListByUserId(sysUser.getId());
             List<GrantedAuthority> grantedAuthorities = roles.stream()
-                    .map(role -> new SimpleGrantedAuthority(role.getEnname()))
+                    .map(role -> new SimpleGrantedAuthority(role.getEnName()))
                     .collect(Collectors.toList());
             //创建一个用户对象，存入用户名/密码/用户的角色 用于认证授权
             return new User(sysUser.getUsername(), sysUser.getPassword(), grantedAuthorities);
         }
-        throw new RuntimeException("账号或密码错误");
+        return null;
     }
 }

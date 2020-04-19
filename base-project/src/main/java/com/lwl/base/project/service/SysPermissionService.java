@@ -2,6 +2,7 @@ package com.lwl.base.project.service;
 
 import com.lwl.base.api.common.base.BaseService;
 import com.lwl.base.project.entity.pojo.SysPermission;
+import com.lwl.base.project.entity.pojo.UrlRole;
 
 import java.util.List;
 
@@ -17,4 +18,9 @@ public interface SysPermissionService extends BaseService<SysPermission>{
      * @return List<SysPermission>
      */
     List<SysPermission> queryByUserId(Integer userId);
+
+    /**
+     * 获取权限url和roleName
+     */
+    List<UrlRole> queryPermissionUrlAndRoleName();
 }

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 /**
 * 系统 用户表
 * @author LinWenLi
-* @date 2020/04/12
+* @date 2020/04/18
 */
 @Data
 public class SysUser implements Serializable {
@@ -16,19 +16,21 @@ public class SysUser implements Serializable {
 
     /**id*/
     private Integer id;
-    /**用户名*/
+    /**昵称（显示用户名）*/
+    private String nickName;
+    /**用户名（登录用户名）*/
     private String username;
     /**密码，加密存储*/
     private String password;
+    /**盐值*/
+    private String salt;
     /**手机号*/
     private String telephone;
     /**邮箱*/
     private String email;
     /**状态 0禁用,1启动*/
     private Integer state;
-    /**是否已删除*/
-    private Boolean isDel;
-    /**备注*/
+    /**描述*/
     private String description;
     /**创建者id*/
     private Integer creatorId;
@@ -38,6 +40,6 @@ public class SysUser implements Serializable {
     private Integer updaterId;
     /**更新时间*/
     private Timestamp updateTime;
-    /**盐值*/
-    private String salt;
+    /**是否已删除*/
+    private Boolean isDel;
 }

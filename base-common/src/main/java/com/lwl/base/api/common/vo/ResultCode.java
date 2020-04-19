@@ -17,7 +17,7 @@ public enum ResultCode {
     /**未授权*/
     UNAUTHORIZED(401,"未授权"),
     /**被禁止访问*/
-    FORBIDDEN(403,"被禁止访问"),
+    FORBIDDEN(403,"禁止访问"),
     /**请求的资源不存在*/
     NOT_FOUND(404,"请求的资源不存在"),
     /**请求的方法不允许使用*/

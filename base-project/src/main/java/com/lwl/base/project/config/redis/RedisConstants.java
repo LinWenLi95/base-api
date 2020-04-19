@@ -7,6 +7,15 @@ package com.lwl.base.project.config.redis;
  */
 public class RedisConstants {
 
-    /**key的注释*/
-    public static final String KEY = "";
+    /**权限 permission:{permissionId}:{url}:{method}*/
+    public static final String PERMISSION = "permission:id:%s:%s:%s";
+    /**角色-权限 role_permission:{roleId}:{permissionId}*/
+    public static final String ROLE_PERMISSION = "role_permission:%s:%s";
+    /**角色 role:{roleId}:{roleName}*/
+    public static final String ROLE = "role:%s:%s";
+    /**Jwt jwt:{username}*/
+    public static final String JWT_USERNAME = "jwt:%s";
+
+    public static final String URL_METHOD = "url:%s:method:%s";
+
 }

@@ -6,6 +6,8 @@ import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
 import com.lwl.base.project.entity.pojo.SysPermission;
 import com.lwl.base.project.service.SysPermissionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author LinWenLi
  * @date 2020/04/12
  */
+@Api(value = "权限接口",tags = "权限接口")
 @RestController
 @RequestMapping("/sysPermission")
 public class SysPermissionController {
@@ -35,6 +38,7 @@ public class SysPermissionController {
      * sort 排序方式（可选，值选填：asc|desc，必须与order_by配合使用）
      * @return Result<Page<SysPermission>>
      */
+    @ApiOperation(value = "查询权限列表",notes = "接口描述")
     @GetMapping("/")
     public Result<Page<SysPermission>> queryList(HttpServletRequest request) {
         // 将请求参数集合取出

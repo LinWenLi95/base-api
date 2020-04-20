@@ -32,8 +32,10 @@ public class SysUserController {
     }
 
     @GetMapping("/api/admin")
-    public Result<String> getadmin1() {
-        return Result.success("admin get");
+    public Result<Object> getadmin1() {
+        SysUser sysUser = new SysUser();
+        sysUser.setId(1);
+        return Result.success(sysUser);
     }
 
 

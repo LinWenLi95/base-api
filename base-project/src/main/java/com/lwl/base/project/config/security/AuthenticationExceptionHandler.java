@@ -54,8 +54,6 @@ public class AuthenticationExceptionHandler implements AuthenticationEntryPoint 
             result.setMsg("jwt签名错误");
         } else if (exception instanceof IllegalArgumentException) {
             result.setMsg("jwt凭据非法");
-        } else if (exception instanceof CustomException) {
-            result.setMsg(exception.getMessage());
         }
         return result;
     }

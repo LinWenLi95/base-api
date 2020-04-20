@@ -41,11 +41,11 @@ public class Result<T> {
     }
 
     public static <T> Result<T> success(ResultCode resultCode) {
-        return success(resultCode, "null", null);
+        return success(resultCode, null, null);
     }
 
     public static <T> Result<T> success(T data) {
-        return success(ResultCode.OK, "null", data);
+        return success(ResultCode.OK, null, data);
     }
 
     public static <T> Result<T> success() {

@@ -36,6 +36,7 @@ public class RedisDataInitSchedule {
     public void init() {
         List<UrlRole> urlRoles = permissionService.queryPermissionUrlAndRoleName();
         if (urlRoles != null) {
+            //使用zset，url和method作为key，存roleName列表
             for (UrlRole urlRole : urlRoles) {
                 if (!StringUtils.isEmpty(urlRole.getRoleName())) {
                     String key = String.format(RedisConstants.URL_METHOD, urlRole.getUrl(), urlRole.getMethod());

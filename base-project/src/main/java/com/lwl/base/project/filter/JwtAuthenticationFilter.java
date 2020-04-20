@@ -87,21 +87,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //将token存入redis，有效时间5分钟
         RedisUtils.set(String.format(RedisConstants.JWT_USERNAME, user.getUsername()), token, 300L, TimeUnit.SECONDS);
         //token加入响应对象header中
-        response.setStatus(HttpStatus.OK.value());
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
-        //TODO 待更正
-        Result<Object> result = Result.failure(ResultCode.INTERNAL_SERVER_ERROR);
-        ResponseUtils.responseResult(response, result);
+        //统一响应数据格式
+        ResponseUtils.responseResult(response, Result.failure(ResultCode.OK));
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        // TODO 待更正
-        Result<Object> result = Result.failure(ResultCode.INTERNAL_SERVER_ERROR);
-        String msg = "登录失败";
+        Result<Object> result = Result.failure(ResultCode.BAD_CREDENTIALS);
+        //后续看有没有加详细错误的需要再添加
         if (failed instanceof BadCredentialsException) {
-            msg = "账号或密码错误";
+            result.setMsg("账号或密码错误");
         }
+        //统一响应数据格式
         ResponseUtils.responseResult(response, result);
     }
 }

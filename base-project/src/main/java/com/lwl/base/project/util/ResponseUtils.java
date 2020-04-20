@@ -1,6 +1,7 @@
 package com.lwl.base.project.util;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lwl.base.api.common.vo.Result;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class ResponseUtils {
             e.printStackTrace();
         }
         if (out != null) {
-            out.write(JSON.toJSONString(result));
+            out.write(JSON.toJSONString(result, SerializerFeature.WriteMapNullValue));
             out.flush();
             out.close();
         }

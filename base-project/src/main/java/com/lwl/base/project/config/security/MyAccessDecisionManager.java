@@ -36,8 +36,10 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
         //取出Object中的请求对象request
         HttpServletRequest request = ((FilterInvocation) object).getRequest();
+        String requestUrl = request.getRequestURI();
+        String method = request.getMethod();
         //使用set的去重特性，若有重复的角色则有访问权限
-        Set<String> roleNameSet = getRoleNames(request);
+        Set<String> roleNameSet = getRoleNamesByUrl(requestUrl, method);
         Set<String> authoritieSet = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toSet());
@@ -50,7 +52,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             //两个set集合的元素有重复部分，有权限访问资源,直接return
             return;
         }
-        throw new AccessDeniedException("抱歉，您没有访问权限");
+        return;
+//        throw new AccessDeniedException("抱歉，您没有访问权限");
     }
 
     @Override
@@ -65,32 +68,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
     /**
      * 获取有该url访问权限的所有角色名
-     * ================================================
-     * # 持久化
-     * RDB: 当满足其中一个条件就会执行一次快照
-     * 操作  时间（秒） 次数
-     * save 900 1
-     * AOF: 每次操作成功都会被记录到aof文件中，执行恢复会按照这些指令依次执行进行数据恢复
-     * appendonly no => yes 开启aof模式
-     * 怎么恢复: 执行恢复指令
-     *
-     * ==================================================
-     * url => roles(r1, r2)
-     * hash
-     * 1. url => {role1, permissonId}{role2, permissonId}
-     * 2. hmget(url【key】, r1【field】, r2【field】 .....)
-     * ===================================================
-     * set => 1000
-     * 1. url => {role1, role2, role4}
-     * 2. roles.contains(r1, r2) true/false
-     * ===================================================
-     * zset
-     * url => {{role1, score}, {role2, score}}
-     *
      */
-    private Set<String> getRoleNames(HttpServletRequest request) {
-        String requestUrl = request.getRequestURI();
-        String method = request.getMethod();
+    private Set<String> getRoleNamesByUrl(String requestUrl, String method) {
         /*获取所有已启用 未删除的权限*/
         Set<Object> zget = RedisUtils.zget(String.format(RedisConstants.URL_METHOD, requestUrl, method));
         Set<String> roleNameSet = new HashSet<> ();
@@ -99,7 +78,4 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         }
         return roleNameSet;
     }
-
-
-
 }

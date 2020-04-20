@@ -13,6 +13,9 @@
 * 添加redis工具类
 
 待处理: 
+* 线程池创建
+* 邮件发送服务
+* 理清spring security的使用原理
 * 统一api参数校验
 * 添加knife4j
 * 动态导入权限表数据
@@ -49,3 +52,12 @@ git config --global user.name "usernamestr"
 git config --global user.email "**@qq.com"
 显示配置详情
 git config -l
+
+```java
+@PostMapping("/")
+public Result<Object> add(@RequestBody SysUser obj) {
+
+}
+```
+要让@RequestBody后的对象接收到参数，在发送请求时的`Content-Type`使用`application/json;charset=utf-8`
+参数必须放在body的raw中，不能放在form-data或x-www-form-urlencoded中，否则会取不到数据

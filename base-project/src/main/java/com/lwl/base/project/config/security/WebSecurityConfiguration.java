@@ -15,11 +15,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 /**
@@ -59,11 +61,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterAt(new JwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class)
                 //设置身份验证异常处理程序 异常统一响应数据格式
                 .exceptionHandling()
-                    .authenticationEntryPoint(new AuthenticationExceptionHandler())
-                    .accessDeniedHandler((request, response, exception) -> {
-                        ResponseUtils.responseResult(response, Result.failure(ResultCode.UNAUTHORIZED));
-                    })
-
+                .authenticationEntryPoint((request, response, authException) -> {
+                    //jwt校验失败的处理 统一响应数据格式
+                    ResponseUtils.responseResult(response, Result.failure(ResultCode.AUTHENTICATION_ERROR));
+                })
+                .accessDeniedHandler((request, response, exception) -> {
+                    //403 统一响应数据格式
+                    ResponseUtils.responseResult(response, Result.failure(ResultCode.FORBIDDEN));
+                })
                 .and()
                 .httpBasic()
                 .and()

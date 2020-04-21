@@ -6,19 +6,24 @@
 * logback配置
 * 添加mysql/mybatis相关依赖及配置
 * 添加Spring Security + JWT相关依赖及配置
-* 全局异常处理
+* 添加Spring Security异常统一响应数据格式
+* Controller异常处理统一响应数据格式
 * api输入输出日志打印
 * 添加redis相关依赖及配置
 * redis key统一管理
 * 添加redis工具类
+* 统一api参数校验
+* 添加knife4j
 
 待处理: 
 * 线程池创建
 * 邮件发送服务
-* 理清spring security的使用原理
-* 统一api参数校验
-* 添加knife4j
+
 * 动态导入权限表数据
+```java
+@Api(value = "接口类名称",tags = "接口类名称")
+@ApiOperation(value = "接口名称",notes = "接口描述")
+```
 * 日常所需工具类整理
     JSONObject取出多级下的数据
     字符串驼峰下划线互转
@@ -45,7 +50,7 @@ service方法分为返回结果数据的和返回响应结果实体的
         * 编写业务逻辑实现代码
         * 调用其他service方法
         * 调用dao方法
-    * 组装响应结果（是否要放到service中组装？）
+    * 组装响应结果
 
 在git bash命令行设置显示的用户名及邮箱
 git config --global user.name "usernamestr"
@@ -55,9 +60,15 @@ git config -l
 
 ```java
 @PostMapping("/")
-public Result<Object> add(@RequestBody SysUser obj) {
+public Result<Object> add(@Valid @RequestBody SysUser obj) {
 
 }
 ```
-要让@RequestBody后的对象接收到参数，在发送请求时的`Content-Type`使用`application/json;charset=utf-8`
+postman发送请求要让@RequestBody后的对象接收到参数，在发送请求时的`Content-Type`使用`application/json;charset=utf-8`
 参数必须放在body的raw中，不能放在form-data或x-www-form-urlencoded中，否则会取不到数据
+
+GET方式的接口接收参数使用@RequestParam，因为无法将参数放在请求体中
+@RequestParam接收参数可按数据类型接收单个
+POST/PUT/DELETE接收参数使用@RequestBody
+@RequestBody传入的是json数据，可以自动解析成对象数据
+

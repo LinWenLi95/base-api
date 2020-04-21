@@ -102,10 +102,11 @@ public class ProjectTest {
         for (Map.Entry<RequestMappingInfo, HandlerMethod> mappingInfoHandlerMethodEntry : map.entrySet()) {
             RequestMappingInfo requestMappingInfo = mappingInfoHandlerMethodEntry.getKey();
             HandlerMethod handlerMethod = mappingInfoHandlerMethodEntry.getValue();
+            //创建权限对象并赋上预设初值
             SysPermission permission = new SysPermission();
             BeanUtils.copyProperties(source, permission);
+            //获取方法上的注解
             Annotation[] annotations = handlerMethod.getMethod().getDeclaredAnnotations();
-            // 处理具体的方法信息
             for (Annotation annotation : annotations) {
                 if (annotation instanceof ApiOperation) {
                     ApiOperation methodDesc = (ApiOperation) annotation;

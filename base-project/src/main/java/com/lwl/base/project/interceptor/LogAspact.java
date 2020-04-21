@@ -17,8 +17,8 @@ import java.util.Set;
 
 /**
  * 日志切面处理
+ * @author LinWenLi
  * @date 2019-11-28
- * @author lwl
  */
 @Slf4j
 @Aspect
@@ -42,7 +42,7 @@ public class LogAspact {
     public void deletePointCut() {}
 
     /**为切入点设置环绕通知*/
-    @Around("getPointCut(),postPointCut(),putPointCut(),deletePointCut()")
+    @Around("getPointCut()||postPointCut()||putPointCut()||deletePointCut()")
     public Object logHandler(ProceedingJoinPoint process) {
         long startTime = System.currentTimeMillis();
         long costTime;

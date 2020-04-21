@@ -1,6 +1,7 @@
 package com.lwl.base.project.controller;
 
 import com.lwl.base.api.common.util.HttpRequestUtil;
+import com.lwl.base.project.entity.dto.UserDTO;
 import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.api.common.vo.Page;
 import com.lwl.base.api.common.vo.Result;
@@ -9,10 +10,12 @@ import com.lwl.base.project.entity.pojo.SysUser;
 import com.lwl.base.project.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * 系统 用户表Controller
@@ -27,7 +30,7 @@ public class SysUserController {
     SysUserService sysUserService;
 
     @DeleteMapping("/api/admin")
-    public Result<String> getadmin() {
+    public Result<String> getadmin(@Valid @RequestBody UserDTO userDTO) {
         return Result.success("admin delete");
     }
 

@@ -72,19 +72,27 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         //先进行获取一遍，如果没获取到role信息
         Set<String> zget = RedisUtils.zgetString(String.format(RedisConstants.URL_METHOD, requestUrl, method));
         if (zget.isEmpty()) {
-            //获取路径变量匹配url
-            Set<String> matchUrls = RedisUtils.zgetString(RedisConstants.URL_MATCHERS_KEY);
-            AntPathMatcher antPathMatcher = new AntPathMatcher();
-            //遍历匹配
-            for (String pattern : matchUrls) {
-                boolean match = antPathMatcher.match(pattern, requestUrl);
-                if (match) {
-                    requestUrl = pattern;
-                    break;
-                }
-            }
+            requestUrl = getMatchUrl(requestUrl);
             zget = RedisUtils.zgetString(String.format(RedisConstants.URL_METHOD, requestUrl, method));
         }
         return zget;
+    }
+
+    /**
+     * 匹配含路径变量的url
+     * @param requestUrl 实际url
+     */
+    private static String getMatchUrl(String requestUrl) {
+        //获取路径变量匹配url
+        Set<String> matchUrls = RedisUtils.zgetString(RedisConstants.URL_MATCHERS_KEY);
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+        //遍历匹配
+        for (String pattern : matchUrls) {
+            boolean match = antPathMatcher.match(pattern, requestUrl);
+            if (match) {
+                return pattern;
+            }
+        }
+        return requestUrl;
     }
 }

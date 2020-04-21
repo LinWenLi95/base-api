@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
@@ -114,8 +116,6 @@ public class ProjectTest {
             }
             PatternsRequestCondition p = requestMappingInfo.getPatternsCondition();
             for (String url : p.getPatterns()) {
-                //url替换{xx}为**
-
                 permission.setUrl(url);
             }
             RequestMethodsRequestCondition methodsCondition = requestMappingInfo.getMethodsCondition();
@@ -128,18 +128,4 @@ public class ProjectTest {
         System.out.println(permissions.toString());
     }
 
-    public static void main(String[] args) {
-        //url从数据库存入redis中时将{xx}转为**
-        //外部请求url在要到redis匹配url前先
-        String url = "/b/{id}/p/{oo}";
-        int count = url.length() - url.replace("{", "").length();
-        for (int i = 0; i < count; i++) {
-            int x = url.indexOf("{");
-            int j = url.indexOf("}");
-            System.out.println(x+":"+j);
-            url = url.replace(url.substring(x, j+1), "**");
-            System.out.println(url);
-        }
-        boolean matches = url.matches("");
-    }
 }

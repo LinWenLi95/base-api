@@ -1,5 +1,5 @@
 package com.lwl.base.project.config.security;
-import	java.util.HashSet;
+import java.util.*;
 
 import com.lwl.base.project.config.redis.RedisConstants;
 import com.lwl.base.project.entity.pojo.SysPermission;
@@ -15,13 +15,12 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -52,8 +51,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             //两个set集合的元素有重复部分，有权限访问资源,直接return
             return;
         }
-        return;
-//        throw new AccessDeniedException("抱歉，您没有访问权限");
+        throw new AccessDeniedException("抱歉，您没有访问权限");
     }
 
     @Override
@@ -71,11 +69,22 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
      */
     private Set<String> getRoleNamesByUrl(String requestUrl, String method) {
         /*获取所有已启用 未删除的权限*/
-        Set<Object> zget = RedisUtils.zget(String.format(RedisConstants.URL_METHOD, requestUrl, method));
-        Set<String> roleNameSet = new HashSet<> ();
-        for (Object o : zget) {
-            roleNameSet.add((String)o);
+        //先进行获取一遍，如果没获取到role信息
+        Set<String> zget = RedisUtils.zgetString(String.format(RedisConstants.URL_METHOD, requestUrl, method));
+        if (zget.isEmpty()) {
+            //获取路径变量匹配url
+            Set<String> matchUrls = RedisUtils.zgetString(RedisConstants.URL_MATCHERS_KEY);
+            AntPathMatcher antPathMatcher = new AntPathMatcher();
+            //遍历匹配
+            for (String pattern : matchUrls) {
+                boolean match = antPathMatcher.match(pattern, requestUrl);
+                if (match) {
+                    requestUrl = pattern;
+                    break;
+                }
+            }
+            zget = RedisUtils.zgetString(String.format(RedisConstants.URL_METHOD, requestUrl, method));
         }
-        return roleNameSet;
+        return zget;
     }
 }

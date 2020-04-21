@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -159,5 +160,14 @@ public class RedisUtils {
 
     public static Set<Object> zget(String key) {
         return redisTemplate.opsForSet().members(key);
+    }
+
+    public static Set<String> zgetString(String key) {
+        Set<Object> zget = zget(key);
+        Set<String> roleNameSet = new HashSet<>();
+        for (Object o : zget) {
+            roleNameSet.add((String)o);
+        }
+        return roleNameSet;
     }
 }

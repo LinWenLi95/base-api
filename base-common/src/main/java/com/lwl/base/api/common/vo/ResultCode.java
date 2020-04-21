@@ -5,11 +5,12 @@ import lombok.Getter;
 /**
  * 操作结果码
  * @author linwenli
+ * @date 2020-01-08 10:54
  */
 @Getter
 public enum ResultCode {
     /**请求成功*/
-    OK(200,"请求成功"),
+    OK(200,"请求处理成功"),
 
     /* 客户端错误 */
     /**坏请求（如，参数错误）*/
@@ -50,5 +51,4 @@ public enum ResultCode {
         this.code = code;
         this.reasonPhrase = reasonPhrase;
     }
-
 }

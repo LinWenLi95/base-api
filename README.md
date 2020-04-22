@@ -16,6 +16,9 @@
 * 添加knife4j
 
 待处理: 
+* 使用mybatisplus代码生成器
+* 写一个对应的代码模板
+https://blog.csdn.net/magician_Code/article/details/102950173
 * 从jwt中获取username供请求方法中使用
 * 整合mybatisplus并调整模板
 * 整理前端页面项目，按钮级权限|登录|常用列表查询|表单提交|权限管理等

@@ -56,12 +56,12 @@ public class Result<T> {
     }
 
     /*请求处理失败*/
-    public static Result<Object> failure(ResultCode resultCode, String msg) {
+    public static <T> Result<T> failure(ResultCode resultCode, String msg) {
         return Result.getInstance(resultCode, msg, null);
     }
 
     /*请求处理失败*/
-    public static Result<Object> failure(ResultCode resultCode) {
+    public static <T> Result<T> failure(ResultCode resultCode) {
         return Result.getInstance(resultCode, null, null);
     }
 }

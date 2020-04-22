@@ -11,6 +11,7 @@
 
     <artifactId>base-common</artifactId>
     <name>base-common(公共实体/工具类)</name>
+    <version>${parent.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>

@@ -1,3 +1,9 @@
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lwl.base.api.common.pojo.PageCondition;
+import com.lwl.base.api.common.pojo.SortEnum;
+import com.lwl.base.code.entity.SysRole;
+import com.lwl.base.code.service.ISysRoleService;
 import com.lwl.base.project.entity.SysPermission;
 import com.lwl.base.project.BaseProjectApplication;
 import io.swagger.annotations.Api;
@@ -24,6 +30,21 @@ import java.util.*;
  */
 @SpringBootTest(classes = BaseProjectApplication.class)
 public class ProjectTest {
+
+    @Autowired
+    private ISysRoleService service;
+
+    @Test
+    public void d() {
+        QueryWrapper<SysRole> query = new QueryWrapper<> (new SysRole());
+        PageCondition pageCondition = new PageCondition();
+        query.orderByAsc(pageCondition.getSort() == SortEnum.ASC, pageCondition.getOrderBy());
+        Page<SysRole> page = new Page<>();
+        page.setCurrent(1);
+        page.setSize(5);
+        service.page(page, query);
+        System.out.println(page.getRecords().size());
+    }
 
     @Autowired
     WebApplicationContext applicationContext;

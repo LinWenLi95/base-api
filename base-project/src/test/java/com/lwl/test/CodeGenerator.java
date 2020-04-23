@@ -18,8 +18,8 @@ import java.util.List;
 
 /**
  * Mybatis Plus Generator
- * @author linwenli
- * @date 2020/04/23
+ * @author LinWenLi
+ * @date 2020-04-23
  */
 @SpringBootTest(classes = BaseProjectApplication.class)
 public class CodeGenerator {
@@ -29,7 +29,7 @@ public class CodeGenerator {
     private String driverName;
     @Value("${spring.datasource.url}")
     private String url;
-    @Value("${spring.datasource.username")
+    @Value("${spring.datasource.username}")
     private String username;
     @Value("${spring.datasource.password}")
     private String password;

@@ -15,7 +15,7 @@
 * 统一api参数校验
 * 添加knife4j
 * 整合mybatisplus
-* 使用mybatisplus代码生成器
+* 添加mybatisplus代码生成器
 
 待处理: 
 * 写一个对应的service代码模板将实体返回值改为optional，列表返回值空时返回空列表

@@ -1,7 +1,7 @@
 package com.lwl.base.project.dao;
 
 import com.lwl.base.api.common.base.BaseMapper;
-import com.lwl.base.project.entity.pojo.SysUser;
+import com.lwl.base.project.entity.SysUser;
 
 /**
 * 系统 用户表数据库操作接口类

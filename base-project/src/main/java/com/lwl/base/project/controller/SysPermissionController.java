@@ -4,7 +4,7 @@ import com.lwl.base.api.common.util.HttpRequestUtil;
 import com.lwl.base.api.common.vo.Page;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
-import com.lwl.base.project.entity.pojo.SysPermission;
+import com.lwl.base.project.entity.SysPermission;
 import com.lwl.base.project.service.SysPermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -54,8 +55,8 @@ public class SysPermissionController {
      */
     @GetMapping("/{id}")
     public Result<SysPermission> queryOne(@PathVariable("id") Integer id) {
-        SysPermission t = sysPermissionService.queryById(id, null);
-        return Result.success(t);
+        Optional<SysPermission> t = sysPermissionService.queryById(id, null);
+        return Result.success(t.get());
     }
 
     /**

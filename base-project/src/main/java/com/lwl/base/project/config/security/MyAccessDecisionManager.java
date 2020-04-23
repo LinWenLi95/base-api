@@ -2,12 +2,7 @@ package com.lwl.base.project.config.security;
 import java.util.*;
 
 import com.lwl.base.project.config.redis.RedisConstants;
-import com.lwl.base.project.entity.pojo.SysPermission;
-import com.lwl.base.project.entity.pojo.SysRole;
-import com.lwl.base.project.service.SysPermissionService;
-import com.lwl.base.project.service.SysRoleService;
 import com.lwl.base.project.util.RedisUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -15,12 +10,10 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**

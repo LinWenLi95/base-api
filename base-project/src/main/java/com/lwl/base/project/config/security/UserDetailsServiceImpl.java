@@ -1,6 +1,6 @@
 package com.lwl.base.project.config.security;
-import com.lwl.base.project.entity.pojo.SysRole;
-import com.lwl.base.project.entity.pojo.SysUser;
+import com.lwl.base.project.entity.SysRole;
+import com.lwl.base.project.entity.SysUser;
 import com.lwl.base.project.service.SysRoleService;
 import com.lwl.base.project.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;

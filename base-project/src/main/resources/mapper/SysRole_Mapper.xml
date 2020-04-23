@@ -3,7 +3,7 @@
 <mapper namespace="com.lwl.base.project.dao.SysRoleMapper">
 
     <!-- 查询单条记录（主键ID查询） -->
-    <select id="selectById" resultType="com.lwl.base.project.entity.pojo.SysRole">
+    <select id="selectById" resultType="com.lwl.base.project.entity.SysRole">
         SELECT
         <if test="columns==null ">
             <include refid="allColumns"/>
@@ -19,7 +19,7 @@
     </select>
 
     <!-- 查询单条记录（map条件查询） -->
-    <select id="selectByMap" resultType="com.lwl.base.project.entity.pojo.SysRole">
+    <select id="selectByMap" resultType="com.lwl.base.project.entity.SysRole">
         SELECT
         <if test="columns==null ">
             <include refid="allColumns"/>
@@ -36,7 +36,7 @@
     </select>
 
     <!-- 分页查询（map条件查询）-->
-    <select id="selectPage" resultType="com.lwl.base.project.entity.pojo.SysRole">
+    <select id="selectPage" resultType="com.lwl.base.project.entity.SysRole">
         SELECT
         <if test="columns==null ">
             <include refid="allColumns"/>
@@ -99,7 +99,7 @@
     </insert>
 
     <!-- 修改 单条记录 -->
-    <update id="update" parameterType="com.lwl.base.project.entity.pojo.SysRole">
+    <update id="update" parameterType="com.lwl.base.project.entity.SysRole">
         UPDATE sys_role
         <include refid="sqlUpdSet"/>
         WHERE id=#{id}
@@ -107,7 +107,7 @@
     </update>
 
     <!-- 删除 单条记录 -->
-    <delete id="delete" parameterType="com.lwl.base.project.entity.pojo.SysRole">
+    <delete id="delete" parameterType="com.lwl.base.project.entity.SysRole">
         DELETE FROM sys_role
         WHERE id=#{id}
         LIMIT 1
@@ -196,7 +196,7 @@
         update_time
     </sql>
 
-    <select id="queryListByUserId" resultType="com.lwl.base.project.entity.pojo.SysRole">
+    <select id="queryListByUserId" resultType="com.lwl.base.project.entity.SysRole">
         select
         r.id,
         r.ch_name,
@@ -215,7 +215,7 @@
         where
         u.id = #{userId}
     </select>
-    <select id="queryListByUrl" resultType="com.lwl.base.project.entity.pojo.SysRole">
+    <select id="queryListByUrl" resultType="com.lwl.base.project.entity.SysRole">
         select
         r.id,
         r.ch_name,

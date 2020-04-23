@@ -1,13 +1,15 @@
 package com.lwl.base.project.service.impl;
 
 import com.lwl.base.api.common.base.BaseMapper;
-import com.lwl.base.project.entity.pojo.UrlRole;
+import com.lwl.base.project.entity.UrlRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.lwl.base.project.entity.pojo.SysPermission;
+import com.lwl.base.project.entity.SysPermission;
 import com.lwl.base.project.dao.SysPermissionMapper;
 import com.lwl.base.project.service.SysPermissionService;
 
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,11 +38,11 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
-    public List<SysPermission> queryByUserId(Integer userId) {
+    public List<SysPermission> queryByUserId(@NotNull Integer userId) {
         if (userId != null) {
             return sysPermissionMapper.queryByUserId(userId);
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

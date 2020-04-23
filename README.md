@@ -14,13 +14,14 @@
 * 添加redis工具类
 * 统一api参数校验
 * 添加knife4j
+* 整合mybatisplus
+* 使用mybatisplus代码生成器
 
 待处理: 
-* 使用mybatisplus代码生成器
-* 写一个对应的代码模板
+* 写一个对应的service代码模板将实体返回值改为optional，列表返回值空时返回空列表
 https://blog.csdn.net/magician_Code/article/details/102950173
 * 从jwt中获取username供请求方法中使用
-* 整合mybatisplus并调整模板
+
 * 整理前端页面项目，按钮级权限|登录|常用列表查询|表单提交|权限管理等
 * 线程池创建
 * 邮件发送服务
@@ -77,4 +78,5 @@ GET方式的接口接收参数使用@RequestParam，因为无法将参数放在�
 @RequestParam接收参数可按数据类型接收单个
 POST/PUT/DELETE接收参数使用@RequestBody
 @RequestBody传入的是json数据，可以自动解析成对象数据
-
+接口入参实体命名规则：
+请求类型/请求名/(相似pojo名)/dto

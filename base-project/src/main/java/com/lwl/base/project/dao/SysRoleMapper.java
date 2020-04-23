@@ -1,7 +1,7 @@
 package com.lwl.base.project.dao;
 
 import com.lwl.base.api.common.base.BaseMapper;
-import com.lwl.base.project.entity.pojo.SysRole;
+import com.lwl.base.project.entity.SysRole;
 
 import java.util.List;
 

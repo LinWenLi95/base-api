@@ -1,7 +1,7 @@
 package com.lwl.base.project.service;
 
 import com.lwl.base.api.common.base.BaseService;
-import com.lwl.base.project.entity.pojo.SysRolePermission;
+import com.lwl.base.project.entity.SysRolePermission;
 
 /**
 * 系统 角色-权限表Service接口

@@ -1,7 +1,7 @@
 package com.lwl.base.project.service;
 
 import com.lwl.base.api.common.base.BaseService;
-import com.lwl.base.project.entity.pojo.SysUser;
+import com.lwl.base.project.entity.SysUser;
 
 /**
 * 系统 用户表Service接口

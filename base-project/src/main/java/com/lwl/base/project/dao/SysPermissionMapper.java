@@ -1,8 +1,8 @@
 package com.lwl.base.project.dao;
 
 import com.lwl.base.api.common.base.BaseMapper;
-import com.lwl.base.project.entity.pojo.SysPermission;
-import com.lwl.base.project.entity.pojo.UrlRole;
+import com.lwl.base.project.entity.SysPermission;
+import com.lwl.base.project.entity.UrlRole;
 
 import java.util.List;
 

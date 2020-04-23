@@ -3,7 +3,7 @@
 <mapper namespace="com.lwl.base.project.dao.SysPermissionMapper">
 
     <!-- 查询单条记录（主键ID查询） -->
-    <select id="selectById" resultType="com.lwl.base.project.entity.pojo.SysPermission">
+    <select id="selectById" resultType="com.lwl.base.project.entity.SysPermission">
         SELECT
         <if test="columns==null ">
             <include refid="allColumns"/>
@@ -19,7 +19,7 @@
     </select>
 
     <!-- 查询单条记录（map条件查询） -->
-    <select id="selectByMap" resultType="com.lwl.base.project.entity.pojo.SysPermission">
+    <select id="selectByMap" resultType="com.lwl.base.project.entity.SysPermission">
         SELECT
         <if test="columns==null ">
             <include refid="allColumns"/>
@@ -36,7 +36,7 @@
     </select>
 
     <!-- 分页查询（map条件查询）-->
-    <select id="selectPage" resultType="com.lwl.base.project.entity.pojo.SysPermission">
+    <select id="selectPage" resultType="com.lwl.base.project.entity.SysPermission">
         SELECT
         <if test="columns==null ">
             <include refid="allColumns"/>
@@ -101,7 +101,7 @@
     </insert>
 
     <!-- 修改 单条记录 -->
-    <update id="update" parameterType="com.lwl.base.project.entity.pojo.SysPermission">
+    <update id="update" parameterType="com.lwl.base.project.entity.SysPermission">
         UPDATE sys_permission
         <include refid="sqlUpdSet"/>
         WHERE id=#{id}
@@ -109,7 +109,7 @@
     </update>
 
     <!-- 删除 单条记录 -->
-    <delete id="delete" parameterType="com.lwl.base.project.entity.pojo.SysPermission">
+    <delete id="delete" parameterType="com.lwl.base.project.entity.SysPermission">
         DELETE FROM sys_permission
         WHERE id=#{id}
         LIMIT 1
@@ -206,7 +206,7 @@
     </sql>
 
     <!--用户授权时使用-->
-    <select id="queryByUserId" resultType="com.lwl.base.project.entity.pojo.SysPermission">
+    <select id="queryByUserId" resultType="com.lwl.base.project.entity.SysPermission">
         select
         p.id,
         p.title,
@@ -228,7 +228,7 @@
     </select>
 
     <!--查询权限url和roleName-->
-    <select id="queryPermissionUrlAndRoleName" resultType="com.lwl.base.project.entity.pojo.UrlRole">
+    <select id="queryPermissionUrlAndRoleName" resultType="com.lwl.base.project.entity.UrlRole">
         SELECT
         p.url,
         p.method,

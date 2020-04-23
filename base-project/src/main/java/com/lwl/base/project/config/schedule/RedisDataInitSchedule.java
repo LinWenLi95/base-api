@@ -1,14 +1,8 @@
 package com.lwl.base.project.config.schedule;
 
-import com.lwl.base.api.common.util.StringUtil;
 import com.lwl.base.project.config.redis.RedisConstants;
-import com.lwl.base.project.entity.pojo.SysPermission;
-import com.lwl.base.project.entity.pojo.SysRole;
-import com.lwl.base.project.entity.pojo.SysRolePermission;
-import com.lwl.base.project.entity.pojo.UrlRole;
+import com.lwl.base.project.entity.UrlRole;
 import com.lwl.base.project.service.SysPermissionService;
-import com.lwl.base.project.service.SysRolePermissionService;
-import com.lwl.base.project.service.SysRoleService;
 import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.project.util.UrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.lwl.base.project.service.impl;
 import com.lwl.base.api.common.base.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.lwl.base.project.entity.pojo.SysUser;
+import com.lwl.base.project.entity.SysUser;
 import com.lwl.base.project.dao.SysUserMapper;
 import com.lwl.base.project.service.SysUserService;
 import org.springframework.util.StringUtils;

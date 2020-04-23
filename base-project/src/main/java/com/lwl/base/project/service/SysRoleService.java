@@ -1,7 +1,7 @@
 package com.lwl.base.project.service;
 
 import com.lwl.base.api.common.base.BaseService;
-import com.lwl.base.project.entity.pojo.SysRole;
+import com.lwl.base.project.entity.SysRole;
 
 import java.util.List;
 

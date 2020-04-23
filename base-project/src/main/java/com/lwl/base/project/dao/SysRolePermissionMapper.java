@@ -1,7 +1,7 @@
 package com.lwl.base.project.dao;
 
 import com.lwl.base.api.common.base.BaseMapper;
-import com.lwl.base.project.entity.pojo.SysRolePermission;
+import com.lwl.base.project.entity.SysRolePermission;
 
 /**
  * @author linwenli

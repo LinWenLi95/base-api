@@ -1,6 +1,4 @@
-import com.lwl.base.project.config.redis.RedisConstants;
-import com.lwl.base.project.entity.pojo.SysPermission;
-import com.lwl.base.project.util.RedisUtils;
+import com.lwl.base.project.entity.SysPermission;
 import com.lwl.base.project.BaseProjectApplication;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.AntPathMatcher;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;

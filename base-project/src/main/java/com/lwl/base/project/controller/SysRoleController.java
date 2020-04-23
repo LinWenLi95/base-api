@@ -4,12 +4,13 @@ import com.lwl.base.api.common.util.HttpRequestUtil;
 import com.lwl.base.api.common.vo.Page;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
-import com.lwl.base.project.entity.pojo.SysRole;
+import com.lwl.base.project.entity.SysRole;
 import com.lwl.base.project.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -50,8 +51,8 @@ public class SysRoleController {
      */
     @GetMapping("/{id}")
     public Result<SysRole> queryOne(@PathVariable("id") Integer id) {
-        SysRole t = sysRoleService.queryById(id, null);
-        return Result.success(t);
+        Optional<SysRole> t = sysRoleService.queryById(id, null);
+        return Result.success(t.get());
     }
 
     /**

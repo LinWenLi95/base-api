@@ -4,7 +4,7 @@ import com.lwl.base.api.common.base.BaseMapper;
 import com.lwl.base.project.dao.SysRolePermissionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.lwl.base.project.entity.pojo.SysRolePermission;
+import com.lwl.base.project.entity.SysRolePermission;
 import com.lwl.base.project.service.SysRolePermissionService;
 
 /**

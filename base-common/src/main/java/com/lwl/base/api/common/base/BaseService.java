@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 通用service，数据表映射的service接口继承此接口
@@ -28,8 +29,8 @@ public interface BaseService<T> {
      * @param columns 要返回数据的列名（放空则返回全部列）
      * @return T
      */
-    default T queryById(Integer id, List<String> columns) {
-        return getMapper().selectById(id, columns);
+    default Optional<T> queryById(Integer id, List<String> columns) {
+        return Optional.ofNullable(getMapper().selectById(id, columns));
     }
 
     /**

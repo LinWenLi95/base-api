@@ -1,25 +1,33 @@
-package com.lwl.base.project.entity.pojo;
+package com.lwl.base.project.entity;
 
 import java.io.Serializable;
 import lombok.Data;
 import java.sql.Timestamp;
 
 /**
-* 系统 角色表
+* 系统 用户表
 * @author LinWenLi
 * @date 2020/04/18
 */
 @Data
-public class SysRole implements Serializable {
+public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /***/
+    /**id*/
     private Integer id;
-    /**角色名称 中*/
-    private String chName;
-    /**角色名称 英*/
-    private String enName;
+    /**昵称（显示用户名）*/
+    private String nickName;
+    /**用户名（登录用户名）*/
+    private String username;
+    /**密码，加密存储*/
+    private String password;
+    /**盐值*/
+    private String salt;
+    /**手机号*/
+    private String telephone;
+    /**邮箱*/
+    private String email;
     /**状态 0禁用,1启动*/
     private Integer state;
     /**描述*/

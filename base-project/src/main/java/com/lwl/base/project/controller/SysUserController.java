@@ -1,16 +1,12 @@
 package com.lwl.base.project.controller;
 
 import com.lwl.base.api.common.util.HttpRequestUtil;
-import com.lwl.base.project.entity.dto.UserDTO;
-import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.api.common.vo.Page;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
-import com.lwl.base.project.entity.pojo.SysUser;
+import com.lwl.base.project.entity.SysUser;
 import com.lwl.base.project.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -30,7 +26,7 @@ public class SysUserController {
     SysUserService sysUserService;
 
     @DeleteMapping("/api/admin")
-    public Result<String> getadmin(@Valid @RequestBody UserDTO userDTO) {
+    public Result<String> getadmin(@Valid @RequestBody String username) {
         return Result.success("admin delete");
     }
 
@@ -67,8 +63,8 @@ public class SysUserController {
      */
     @GetMapping("/{id}")
     public Result<SysUser> queryOne(@PathVariable("id") Integer id) {
-        SysUser t = sysUserService.queryById(id, null);
-        return Result.success(t);
+//        SysUser t = sysUserService.queryById(id, null);
+        return Result.success();
     }
 
     /**

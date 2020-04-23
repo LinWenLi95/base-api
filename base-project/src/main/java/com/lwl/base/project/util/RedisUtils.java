@@ -170,4 +170,8 @@ public class RedisUtils {
         }
         return roleNameSet;
     }
+
+    public static Boolean hasKey(String key) {
+        return redisTemplate.hasKey(key);
+    }
 }

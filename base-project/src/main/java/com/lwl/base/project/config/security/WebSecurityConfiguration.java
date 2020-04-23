@@ -1,6 +1,5 @@
 package com.lwl.base.project.config.security;
 
-import com.alibaba.fastjson.JSON;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
 import com.lwl.base.project.filter.JwtAuthenticationFilter;
@@ -15,19 +14,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
-
 /**
  * SpringSecurity配置类
  * @author LinWenLi
- * @date 2020-04-17
+ * @since 2020-04-17
  */
 @EnableWebSecurity
 @Configuration
@@ -63,11 +58,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) -> {
                     //jwt校验失败的处理 统一响应数据格式
-                    ResponseUtils.responseResult(response, Result.failure(ResultCode.AUTHENTICATION_ERROR));
+                    ResponseUtils.responseResult(response, Result.error(ResultCode.AUTHENTICATION_ERROR));
                 })
                 .accessDeniedHandler((request, response, exception) -> {
                     //403 统一响应数据格式
-                    ResponseUtils.responseResult(response, Result.failure(ResultCode.FORBIDDEN));
+                    ResponseUtils.responseResult(response, Result.error(ResultCode.FORBIDDEN));
                 })
                 .and()
                 .httpBasic()
@@ -80,6 +75,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors();
     }
-
-
 }

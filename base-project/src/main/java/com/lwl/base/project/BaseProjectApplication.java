@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author LinWenLi
  */
-@MapperScan(basePackages = "com.lwl.base.project.dao")
+@MapperScan(basePackages = "com.lwl.base.project.mapper")
 @SpringBootApplication
 public class BaseProjectApplication {
 

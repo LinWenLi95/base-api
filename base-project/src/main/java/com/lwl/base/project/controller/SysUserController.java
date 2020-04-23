@@ -1,111 +1,60 @@
 package com.lwl.base.project.controller;
 
-import com.lwl.base.api.common.util.HttpRequestUtil;
-import com.lwl.base.api.common.vo.Page;
+
 import com.lwl.base.api.common.vo.Result;
-import com.lwl.base.api.common.vo.ResultCode;
 import com.lwl.base.project.entity.SysUser;
-import com.lwl.base.project.service.SysUserService;
+import com.lwl.base.project.service.ISysUserService;
+import com.lwl.base.project.util.JwtUtils;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 /**
- * 系统 用户表Controller
+ * 系统 用户表 前端控制器
  * @author LinWenLi
- * @date 2020/04/12
+ * @since 2020-04-23
  */
 @RestController
-@RequestMapping("/users")
 public class SysUserController {
 
     @Autowired
-    SysUserService sysUserService;
+    private ISysUserService sysUserService;
 
-    @DeleteMapping("/api/admin")
-    public Result<String> getadmin(@Valid @RequestBody String username) {
-        return Result.success("admin delete");
+    @ApiOperation(value = "查询用户信息",notes = "查询单条数据")
+    @GetMapping("/users/{id}")
+    public Result<Object> getUser(@PathVariable("id") String userId) {
+        return Result.ok(sysUserService.getById(userId));
     }
 
-    @GetMapping("/api/admin")
-    public Result<Object> getadmin1() {
-        SysUser sysUser = new SysUser();
-        sysUser.setId(1);
-        return Result.success(sysUser);
+    @ApiOperation(value = "查询用户信息列表",notes = "查询多条数据")
+    @GetMapping("/users")
+    public Result<Object> getUsers() {
+        return Result.ok(sysUserService.getMap(null));
     }
 
-
-    /**http://localhost:8080/sysUsers?current=1&limit=10&order_by=id&sort=asc
-     * 查询多条数据
-     * @param request 请求对象，以下请求参数：<br/>
-     * T对象的属性名（可选,所有属性都可作为条件）<br/>
-     * current 当前页码（可选，必须与limit配合使用）<br/>
-     * limit 取出数量（可选，可单独使用）<br/>
-     * order_by 排序字段（可选，必须与sort配合使用）<br/>
-     * sort 排序方式（可选，值选填：asc|desc，必须与order_by配合使用）
-     * @return Result<Page<SysUser>>
-     */
-    @GetMapping("/")
-    public Result<Page<SysUser>> queryList(HttpServletRequest request) {
-        // 将请求参数集合取出
-        Map<String, Object> parameterMap = HttpRequestUtil.getParameterMap(request);
-        Page<SysUser> page = sysUserService.queryPage(parameterMap, null);
-        return Result.success(page);
+    @ApiOperation(value = "添加用户",notes = "添加一条数据")
+    @PostMapping("/users")
+    public Result<Object> addUser() {
+        return Result.ok(sysUserService.getMap(null));
     }
 
-    /**
-     * 查询单条数据
-     * @param id 主键
-     * @return Result<SysUser>
-     */
-    @GetMapping("/{id}")
-    public Result<SysUser> queryOne(@PathVariable("id") Integer id) {
-//        SysUser t = sysUserService.queryById(id, null);
-        return Result.success();
+    @ApiOperation(value = "更新用户信息",notes = "更新一条数据")
+    @PutMapping("/users")
+    public Result<Object> editUser() {
+        return Result.ok(sysUserService.getMap(null));
     }
 
-    /**
-     * 新增数据
-     * @param obj 要添加的参数
-     * @return Result<Object>
-     */
-    @PostMapping("/")
-    public Result<Object> add(@RequestBody SysUser obj) {
-        Integer result = 0;
-        if (obj != null) {
-            result = sysUserService.add(obj);
+    @ApiOperation(value = "删除用户信息",notes = "删除一条数据")
+    @DeleteMapping("/users")
+    public Result<Object> removeUser(@RequestBody String userId,
+                                     @RequestHeader String token) {
+        Object username = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userId.equals(JwtUtils.getUserNameFormToken(token))) {
+            return Result.error();
         }
-        return result > 0 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
+        boolean result = sysUserService.removeById(userId);
+        return result ? Result.ok() : Result.error();
     }
 
-    /**
-     * 更新数据
-     * @param obj 要更新的参数
-     * @return Result<Object>
-     */
-    @PutMapping("/")
-    public Result<Object> update(@RequestBody SysUser obj) {
-        Integer result = 0;
-        if (obj != null) {
-            result = sysUserService.edit(obj);
-        }
-        return result == 1 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
-    }
-
-    /**
-     * 删除数据
-     * @param id 主键
-     * @return Result<Object>
-     */
-    @DeleteMapping("/{id}")
-    public Result<Object> del(@PathVariable("id") Integer id) {
-        Integer result = 0;
-        if (id != null) {
-            result = sysUserService.remove(id);
-        }
-        return result == 1 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
-    }
 }

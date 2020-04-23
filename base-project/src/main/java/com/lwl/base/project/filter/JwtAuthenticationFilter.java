@@ -1,6 +1,5 @@
 package com.lwl.base.project.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
 import com.lwl.base.project.config.redis.RedisConstants;
@@ -9,7 +8,6 @@ import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.project.util.ResponseUtils;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,9 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -89,12 +85,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //token加入响应对象header中
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
         //统一响应数据格式
-        ResponseUtils.responseResult(response, Result.failure(ResultCode.OK));
+        ResponseUtils.responseResult(response, Result.error(ResultCode.OK));
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        Result<Object> result = Result.failure(ResultCode.BAD_CREDENTIALS);
+        Result<Object> result = Result.error(ResultCode.BAD_CREDENTIALS);
         //后续看有没有加详细错误的需要再添加
         if (failed instanceof BadCredentialsException) {
             result.setMsg("账号或密码错误");

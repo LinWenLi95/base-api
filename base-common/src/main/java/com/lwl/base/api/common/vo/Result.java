@@ -46,22 +46,34 @@ public class Result<T> {
     }
 
     /**请求处理成功*/
-    public static <T> Result<T> success(T data) {
+    public static <T> Result<T> ok(T data) {
         return Result.getInstance(ResultCode.OK, null, data);
     }
 
     /**请求处理成功*/
-    public static <T> Result<T> success() {
+    public static <T> Result<T> ok() {
         return Result.getInstance(ResultCode.OK, null, null);
     }
 
-    /*请求处理失败*/
-    public static <T> Result<T> failure(ResultCode resultCode, String msg) {
+    /**请求处理失败*/
+    public static <T> Result<T> error() {
+        return Result.getInstance(ResultCode.OPERATION_FAILED, null, null);
+    }
+
+    /**请求处理失败*/
+    public static <T> Result<T> error(String msg) {
+        return Result.getInstance(ResultCode.OPERATION_FAILED, msg, null);
+    }
+
+    /**请求处理失败*/
+    public static <T> Result<T> error(ResultCode resultCode) {
+        return Result.getInstance(resultCode, null, null);
+    }
+
+    /**请求处理失败*/
+    public static <T> Result<T> error(ResultCode resultCode, String msg) {
         return Result.getInstance(resultCode, msg, null);
     }
 
-    /*请求处理失败*/
-    public static <T> Result<T> failure(ResultCode resultCode) {
-        return Result.getInstance(resultCode, null, null);
-    }
+
 }

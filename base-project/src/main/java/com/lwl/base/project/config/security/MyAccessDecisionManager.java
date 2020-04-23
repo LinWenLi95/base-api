@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * 访问决策管理器（确认请求是否可访问资源）
  * @author LinWenLi
- * @date 2020-04-18
+ * @since 2020-04-18
  */
 @Component
 public class MyAccessDecisionManager implements AccessDecisionManager {

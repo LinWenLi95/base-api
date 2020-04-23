@@ -37,7 +37,7 @@ public class CodeGenerator {
     @Test
     public void generate() {
         //要生成代码的表名,多个表名使用英文逗号隔开
-        String tableNames = "sys_user,sys_role";
+        String tableNames = "sys_permission";
 
         //通用包名
         String packageName = "com.lwl";
@@ -131,7 +131,7 @@ public class CodeGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return xmlOutputDir + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return xmlOutputDir + tableInfo.getEntityName() + "_Mapper" + StringPool.DOT_XML;
             }
         });
         cfg.setFileOutConfigList(focList);

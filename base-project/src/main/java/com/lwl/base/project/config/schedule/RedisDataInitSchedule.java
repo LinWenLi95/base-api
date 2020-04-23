@@ -1,8 +1,8 @@
 package com.lwl.base.project.config.schedule;
 
+import com.lwl.base.api.common.pojo.UrlRole;
 import com.lwl.base.project.config.redis.RedisConstants;
-import com.lwl.base.project.entity.UrlRole;
-import com.lwl.base.project.service.SysPermissionService;
+import com.lwl.base.project.service.ISysPermissionService;
 import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.project.util.UrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +14,13 @@ import java.util.List;
 
 /**
  * 初始化redis相关数据
- * @author Admin
+ * @author LinWenLi
  */
 @Component
 public class RedisDataInitSchedule {
 
     @Autowired
-    private SysPermissionService permissionService;
+    private ISysPermissionService permissionService;
     @Autowired
     private RedisUtils redisUtils;
 
@@ -29,6 +29,9 @@ public class RedisDataInitSchedule {
      */
     @PostConstruct
     public void init() {
+//        if (RedisUtils.hasKey("url:")) {
+//            return;
+//        }
         List<UrlRole> urlRoles = permissionService.queryPermissionUrlAndRoleName();
         if (urlRoles != null) {
             //使用zset，url和method作为key，存roleName列表

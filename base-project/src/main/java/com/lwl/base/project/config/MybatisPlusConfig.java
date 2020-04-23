@@ -10,11 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * MybatisPlus分页配置
  * @author linwenli
- * @date 2020/04/23
+ * @since 2020-04-23
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.lwl.base.code.*")
 public class MybatisPlusConfig {
 
     @Bean

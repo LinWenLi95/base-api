@@ -1,4 +1,4 @@
-package com.lwl.base.project.entity;
+package com.lwl.base.api.common.pojo;
 
 import lombok.Data;
 

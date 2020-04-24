@@ -3,16 +3,33 @@ package com.lwl.base.project.util;
 import com.lwl.base.project.config.security.SecurityConstants;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.RequestDispatcher;
 
 /**
+ * 认证信息内容获取工具类
  * @author LinWenLi
  * @since 2020-04-24
  */
 public class JwtUtils {
 
-    public static String getUserNameFormToken(String token) {
+    /**
+     * 获取当前请求的认证用户id
+     * @return String
+     */
+    public static String getUserId() {
+        return null;
+    }
+
+    /**
+     * 获取主要认证信息，用于获取用户id
+     */
+    public static Object getPrincipal() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    public static String getSubjectFormToken(String token) {
         // 使用密钥解析JWT
         Jws<Claims> claimsJws = null;
         try {

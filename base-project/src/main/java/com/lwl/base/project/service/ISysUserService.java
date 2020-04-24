@@ -1,7 +1,12 @@
 package com.lwl.base.project.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lwl.base.api.common.pojo.PageCondition;
+import com.lwl.base.api.common.vo.Result;
+import com.lwl.base.project.dto.GetUserPageDTO;
 import com.lwl.base.project.entity.SysUser;
+import com.lwl.base.project.vo.GetUserPageVO;
 
 import java.util.Optional;
 
@@ -18,4 +23,19 @@ public interface ISysUserService extends IService<SysUser> {
      * @return SysUser
      */
     SysUser queryByUsername(String username);
+
+    /**
+     * 删除用户
+     * @param userId 要删除的用户id
+     * @return Result<Object>
+     */
+    Result<Object> deleteById(String userId);
+
+    /**
+     * 获取用户分页列表
+     * @param dto 查询条件
+     * @param condition 分页/排序条件
+     * @return
+     */
+    Result<Page<GetUserPageVO>> getUserPage(GetUserPageDTO dto, PageCondition condition);
 }

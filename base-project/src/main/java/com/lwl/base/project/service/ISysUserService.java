@@ -17,5 +17,5 @@ public interface ISysUserService extends IService<SysUser> {
      * @param username 用户名
      * @return SysUser
      */
-    Optional<SysUser> queryByUsername(String username);
+    SysUser queryByUsername(String username);
 }

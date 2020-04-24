@@ -4,10 +4,13 @@ import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.api.common.vo.ResultCode;
 import com.lwl.base.project.config.redis.RedisConstants;
 import com.lwl.base.project.config.security.SecurityConstants;
+import com.lwl.base.project.entity.SysUser;
+import com.lwl.base.project.service.ISysUserService;
 import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.project.util.ResponseUtils;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +19,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
@@ -25,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -34,6 +39,9 @@ import java.util.stream.Collectors;
  * @date 2020-04-18
  */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+//    @Autowired
+//    private ISysUserService userService;
 
     private final AuthenticationManager authenticationManager;
 
@@ -64,28 +72,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
-        List<String> roles = user.getAuthorities().stream()
+        List<String> roleNames = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        // 可以将这个key保存起来，要用时再生成SecretKey
-        SecretKey secretKey = Keys.hmacShaKeyFor(SecurityConstants.JWT_SECRET.getBytes());
-        String token = Jwts.builder()
-                .setHeaderParam("TYP", SecurityConstants.TOKEN_TYPE)
-                .setAudience(SecurityConstants.TOKEN_AUDIENCE)
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-                .setSubject(user.getUsername())
-                .setIssuer(SecurityConstants.TOKEN_ISSUER)
-                .setIssuedAt(new Date())
-                // 角色列表放入header
-                .claim("rol", roles)
-                .signWith(secretKey).compact();
-        token = SecurityConstants.TOKEN_PREFIX + token;
-        //将token存入redis，有效时间5分钟
-        RedisUtils.set(String.format(RedisConstants.JWT_USERNAME, user.getUsername()), token, 300L, TimeUnit.SECONDS);
+        //创建token并保存到redis
+        String token = createAndSaveToken(user.getUsername(), roleNames);
         //token加入响应对象header中
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
         //统一响应数据格式
-        ResponseUtils.responseResult(response, Result.error(ResultCode.OK));
+        ResponseUtils.responseResult(response, Result.ok());
     }
 
     @Override
@@ -97,5 +92,34 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
         //统一响应数据格式
         ResponseUtils.responseResult(response, result);
+    }
+
+    /**
+     * 创建token并保存到redis
+     * @param username 用户登录名
+     * @param roleNames 角色名列表
+     * @return token
+     */
+    public String createAndSaveToken(String username, List<String> roleNames) {
+//        SysUser sysUser = userService.queryByUsername(username);
+        // 使用JWT_SECRET生成SecretKey
+        SecretKey secretKey = Keys.hmacShaKeyFor(SecurityConstants.JWT_SECRET.getBytes());
+        String token = Jwts.builder()
+                .setHeaderParam("TYP", SecurityConstants.TOKEN_TYPE)
+                .setAudience(SecurityConstants.TOKEN_AUDIENCE)
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .setSubject(username)
+                .setIssuer(SecurityConstants.TOKEN_ISSUER)
+                .setIssuedAt(new Date())
+                // 角色列表放入header
+//                .claim("uid", sysUser.getId())
+                .claim("rol", roleNames)
+                .signWith(secretKey)
+                .compact();
+
+        token = SecurityConstants.TOKEN_PREFIX + token;
+        //将token存入redis，有效时间5分钟
+        RedisUtils.set(String.format(RedisConstants.JWT_USERNAME, username), token, 300L, TimeUnit.SECONDS);
+        return token;
     }
 }

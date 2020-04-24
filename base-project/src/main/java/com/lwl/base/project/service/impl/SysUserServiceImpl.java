@@ -18,9 +18,9 @@ import java.util.Optional;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
     @Override
-    public Optional<SysUser> queryByUsername(String username) {
+    public SysUser queryByUsername(String username) {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username",username);
-        return Optional.ofNullable(this.getOne(queryWrapper));
+        return this.getOne(queryWrapper);
     }
 }

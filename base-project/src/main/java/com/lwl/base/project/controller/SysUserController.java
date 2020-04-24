@@ -5,6 +5,7 @@ import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.project.entity.SysUser;
 import com.lwl.base.project.service.ISysUserService;
 import com.lwl.base.project.util.JwtUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @author LinWenLi
  * @since 2020-04-23
  */
+@Api(value = "用户表操作")
 @RestController
 public class SysUserController {
 
@@ -30,6 +32,8 @@ public class SysUserController {
     @ApiOperation(value = "查询用户信息列表",notes = "查询多条数据")
     @GetMapping("/users")
     public Result<Object> getUsers() {
+        Object username = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         return Result.ok(sysUserService.getMap(null));
     }
 

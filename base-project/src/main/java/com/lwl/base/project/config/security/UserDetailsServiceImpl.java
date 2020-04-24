@@ -31,17 +31,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 查询用户信息
-        Optional<SysUser> optional = sysUserService.queryByUsername(username);
-        if (optional.isPresent()) {
-            SysUser sysUser = optional.get();
-            // 获取用户的角色列表
-            List<String> roles = sysRoleService.queryRoleNamesByUserId(sysUser.getId());
-            List<GrantedAuthority> grantedAuthorities = roles.stream()
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
-            //创建一个用户对象，存入用户名/密码/用户的角色 用于认证授权
-            return new User(sysUser.getUsername(), sysUser.getPassword(), grantedAuthorities);
+        SysUser sysUser = sysUserService.queryByUsername(username);
+        if (sysUser == null) {
+            return null;
         }
-        return null;
+        // 获取用户的角色列表
+        List<String> roles = sysRoleService.queryRoleNamesByUserId(sysUser.getId());
+        List<GrantedAuthority> grantedAuthorities = roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        //创建一个用户对象，存入用户名/密码/用户的角色 用于认证授权
+        return new User(sysUser.getUsername(), sysUser.getPassword(), grantedAuthorities);
     }
 }

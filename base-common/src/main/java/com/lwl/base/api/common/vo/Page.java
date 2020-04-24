@@ -7,7 +7,8 @@ import java.util.List;
 
 /**
  * 分页实体
- * @author lwl
+ * @author LinWenLi
+ * @since 2020-04-24
  * @param <T>
  */
 @Data

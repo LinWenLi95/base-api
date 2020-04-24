@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 存储权限url及url对应的角色信息
  * @author LinWenLi
- * @date 2020-04-19
+ * @since 2020-04-19
  */
 @Data
 public class UrlRole {

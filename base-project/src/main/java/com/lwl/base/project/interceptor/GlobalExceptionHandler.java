@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 /**
  * Controller的异常处理
  * @author LinWenLi
- * @date 2020-04-21 23:20
+ * @since 2020-04-21 23:20
  */
 @Slf4j
 @RestControllerAdvice

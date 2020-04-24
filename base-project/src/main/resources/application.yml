@@ -46,3 +46,6 @@ mybatis-plus:
   type-aliases-package: com.lwl.base.project.entity.pojo
   configuration:
     map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: isDel  #全局逻辑删除字段值

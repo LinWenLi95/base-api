@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * 过滤器 登录时进行身份认证，认证成功后返回授权token
  * @author LinWenLi
- * @date 2020-04-18
+ * @since 2020-04-18
  */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

@@ -4,6 +4,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author LinWenLi
+ * @since 2020-04-24
  */
 public class StringUtil {
 

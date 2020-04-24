@@ -6,7 +6,8 @@ import java.util.Map;
 
 /**
  * 通用mapper，数据表映射的mapper接口继承此接口
- * @author Admin
+ * @author LinWenLi
+ * @since 2020-04-24
  * @param <T>
  */
 public interface BaseMapper<T> {

@@ -5,8 +5,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * 操作结果实体
- * @author linwenli
- * @date 2020-01-08 10:54
+ * @author LinWenLi
+ * @since 2020-01-08
  */
 @Data
 public class Result<T> {

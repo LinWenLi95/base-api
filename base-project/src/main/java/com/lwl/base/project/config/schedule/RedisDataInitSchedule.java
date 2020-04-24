@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * 初始化redis相关数据
  * @author LinWenLi
+ * @since 2020-04-24
  */
 @Component
 public class RedisDataInitSchedule {

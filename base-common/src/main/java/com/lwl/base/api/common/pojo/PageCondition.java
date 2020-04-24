@@ -5,8 +5,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * 分页/排序查询需要传入的参数
- * @author linwenli
- * @date 2020/04/23
+ * @author LinWenLi
+ * @since 2020-04-23
  */
 @Data
 public class PageCondition {

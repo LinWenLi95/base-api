@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * Jwt身份验证令牌过滤器
  * @author LinWenLi
- * @date 2020-04-18
+ * @since 2020-04-18
  */
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 

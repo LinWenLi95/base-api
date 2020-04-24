@@ -3,8 +3,8 @@ package com.lwl.base.project.util;
 import org.springframework.util.StringUtils;
 
 /**
- * @author linwenli
- * @date 2020/04/21
+ * @author LinWenLi
+ * @since 2020-04-21
  */
 public class UrlUtils {
 

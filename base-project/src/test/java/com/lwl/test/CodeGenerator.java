@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Mybatis Plus Generator
  * @author LinWenLi
- * @date 2020-04-23
+ * @since 2020-04-23
  */
 @SpringBootTest(classes = BaseProjectApplication.class)
 public class CodeGenerator {

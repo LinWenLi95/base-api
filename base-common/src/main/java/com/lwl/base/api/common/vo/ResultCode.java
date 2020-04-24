@@ -4,8 +4,8 @@ import lombok.Getter;
 
 /**
  * 操作结果码
- * @author linwenli
- * @date 2020-01-08 10:54
+ * @author LinWenLi
+ * @since 2020-01-08
  */
 @Getter
 public enum ResultCode {

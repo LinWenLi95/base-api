@@ -4,8 +4,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * 排序枚举
- * @author linwenli
- * @date 2020/04/23
+ * @author LinWenLi
+ * @since 2020-04-23
  */
 public enum SortEnum{
     /**升序*/

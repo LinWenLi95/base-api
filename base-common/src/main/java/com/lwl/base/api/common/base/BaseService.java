@@ -12,7 +12,8 @@ import java.util.Optional;
 
 /**
  * 通用service，数据表映射的service接口继承此接口
- * @author lwl
+ * @author LinWenLi
+ * @since 2020-04-24
  * @param <T>
  */
 public interface BaseService<T> {

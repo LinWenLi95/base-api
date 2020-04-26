@@ -48,6 +48,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(dto, sysUser);
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>(sysUser);
+//        QueryWrapper<GetUserPageDTO> queryWrapper = new QueryWrapper<>(dto);
         //排序
         if (!StringUtils.isEmpty(condition.getOrderBy())) {
             queryWrapper.orderByAsc(condition.getSort() == SortEnum.ASC, condition.getOrderBy());
@@ -55,13 +56,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         //分页
         Page<GetUserPageVO> page = new Page<>();
-        if (condition.getCurrent() != null) {
-            page.setCurrent(condition.getCurrent());
-        }
         if (condition.getLimit() != null) {
             page.setSize(condition.getLimit());
+            if (condition.getCurrent() != null) {
+                page.setCurrent(condition.getCurrent());
+            }
         }
+        Page<GetUserPageVO> page1 = this.baseMapper.page(page, queryWrapper);
+        //https://www.cnblogs.com/brucebai/p/12365499.html 完美解决不同响应值的问题
 //        this.page(page, queryWrapper);https://www.cnblogs.com/mozq/p/11755375.html
-        return Result.ok();
+        return Result.ok(page1);
     }
 }

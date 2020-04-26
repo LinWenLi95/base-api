@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author LinWenLi
- * @since 2020-01-11
+ * @since 2020-03-15
  */
 @MapperScan(basePackages = "com.lwl.base.project.mapper")
 @SpringBootApplication

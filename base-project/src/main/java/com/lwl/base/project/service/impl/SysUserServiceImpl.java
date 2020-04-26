@@ -1,10 +1,15 @@
 package com.lwl.base.project.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lwl.base.api.common.pojo.PageCondition;
 import com.lwl.base.api.common.pojo.SortEnum;
+import com.lwl.base.api.common.util.StringUtil;
 import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.project.dto.GetUserPageDTO;
 import com.lwl.base.project.mapper.SysUserMapper;
@@ -15,6 +20,10 @@ import com.lwl.base.project.vo.GetUserPageVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 
 /**
@@ -44,27 +53,42 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public Result<Page<GetUserPageVO>> getUserPage(GetUserPageDTO dto, PageCondition condition) {
-        SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(dto, sysUser);
-        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>(sysUser);
-//        QueryWrapper<GetUserPageDTO> queryWrapper = new QueryWrapper<>(dto);
+    public Result<Page<GetUserPageVO>> getPage(GetUserPageDTO dto, PageCondition condition) {
+        Page<GetUserPageVO> pageResult = getPage(dto, condition, (page, queryWrapper) -> this.baseMapper.getPage(page, queryWrapper));
+        return Result.ok(pageResult);
+    }
+
+    /**
+     * 分页列表
+     * @param dto 过滤条件
+     * @param condition 分页条件
+     * @param function 函数
+     * @param <T> 泛型
+     * @param <R> 泛型
+     * @return Page<R>
+     */
+    public <T, R> Page<R> getPage(T dto, PageCondition condition, BiFunction<Page<R>, QueryWrapper<T>, Page<R>> function) {
+        QueryWrapper<T> queryWrapper = Wrappers.query();
+        //条件
+        JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(dto));
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            if (entry.getValue() != null) {
+                queryWrapper.eq(StringUtil.camelCaseToUnderscore(entry.getKey()), entry.getValue());
+            }
+        }
         //排序
         if (!StringUtils.isEmpty(condition.getOrderBy())) {
             queryWrapper.orderByAsc(condition.getSort() == SortEnum.ASC, condition.getOrderBy());
             queryWrapper.orderByDesc(condition.getSort() == SortEnum.DESC, condition.getOrderBy());
         }
         //分页
-        Page<GetUserPageVO> page = new Page<>();
+        Page<R> page = new Page<>();
         if (condition.getLimit() != null) {
             page.setSize(condition.getLimit());
             if (condition.getCurrent() != null) {
                 page.setCurrent(condition.getCurrent());
             }
         }
-        Page<GetUserPageVO> page1 = this.baseMapper.page(page, queryWrapper);
-        //https://www.cnblogs.com/brucebai/p/12365499.html 完美解决不同响应值的问题
-//        this.page(page, queryWrapper);https://www.cnblogs.com/mozq/p/11755375.html
-        return Result.ok(page1);
+        return function.apply(page, queryWrapper);
     }
 }

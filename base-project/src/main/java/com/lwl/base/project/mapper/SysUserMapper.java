@@ -16,6 +16,12 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    Page<GetUserPageVO> page(Page<GetUserPageVO> page, @Param(Constants.WRAPPER) QueryWrapper<SysUser> queryWrapper);
+    /**
+     * 分页查询
+     * @param page 分页对象
+     * @param queryWrapper 查询条件
+     * @return Page<GetUserPageVO>
+     */
+    Page<GetUserPageVO> getPage(Page<GetUserPageVO> page, @Param(Constants.WRAPPER) QueryWrapper<GetUserPageDTO> queryWrapper);
 
 }

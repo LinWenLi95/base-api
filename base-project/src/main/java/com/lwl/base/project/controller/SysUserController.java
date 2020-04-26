@@ -41,7 +41,7 @@ public class SysUserController {
     @ApiOperation(value = "查询用户信息列表", notes = "查询多条数据")
     @GetMapping("/users")
     public Result<Page<GetUserPageVO>> getUserPage(GetUserPageDTO dto, PageCondition condition) {
-        return sysUserService.getUserPage(dto, condition);
+        return sysUserService.getPage(dto, condition);
     }
 
     @ApiOperation(value = "添加用户",notes = "添加一条数据")

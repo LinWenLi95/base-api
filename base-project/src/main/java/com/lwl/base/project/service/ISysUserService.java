@@ -33,9 +33,8 @@ public interface ISysUserService extends IService<SysUser> {
 
     /**
      * 获取用户分页列表
-     * @param dto 查询条件
+     * @param dto       查询条件
      * @param condition 分页/排序条件
-     * @return
      */
-    Result<Page<GetUserPageVO>> getUserPage(GetUserPageDTO dto, PageCondition condition);
+    Result<Page<GetUserPageVO>> getPage(GetUserPageDTO dto, PageCondition condition);
 }

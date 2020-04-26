@@ -25,12 +25,10 @@ public class TestController {
     public void test1() {
         GetUserPageDTO getUserPageDTO = new GetUserPageDTO();
         PageCondition pageCondition = new PageCondition();
-        Result<Page<GetUserPageVO>> userPage = service.getUserPage(getUserPageDTO, pageCondition);
         pageCondition.setOrderBy("id");
         pageCondition.setSort("desc");
-        Result<Page<GetUserPageVO>> userPage1 = service.getUserPage(getUserPageDTO, pageCondition);
         getUserPageDTO.setUsername("user");
-        Result<Page<GetUserPageVO>> userPage21 = service.getUserPage(getUserPageDTO, pageCondition);
+        Result<Page<GetUserPageVO>> userPage21 = service.getPage(getUserPageDTO, pageCondition);
         System.out.println();
     }
 }

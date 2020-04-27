@@ -24,4 +24,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      */
     Page<GetUserPageVO> getPage(Page<GetUserPageVO> page, @Param(Constants.WRAPPER) QueryWrapper<GetUserPageDTO> queryWrapper);
 
+
+
+    Page<GetUserPageVO> queryPage(Page<GetUserPageVO> page, @Param(Constants.WRAPPER) QueryWrapper<GetUserPageDTO> queryWrapper);
+
 }

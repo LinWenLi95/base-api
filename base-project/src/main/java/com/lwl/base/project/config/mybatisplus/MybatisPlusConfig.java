@@ -1,10 +1,14 @@
-package com.lwl.base.project.config;
+package com.lwl.base.project.config.mybatisplus;
 
+import com.baomidou.mybatisplus.core.injector.AbstractMethod;
+import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.List;
 
 /**
  * MybatisPlus分页配置
@@ -26,4 +30,14 @@ public class MybatisPlusConfig {
         paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
         return paginationInterceptor;
     }
+
+    /**
+     * 将自定义sql注入器bean托管到spring
+     * @return
+     */
+    @Bean
+    public MyInjector myInjector() {
+        return new MyInjector();
+    }
+
 }

@@ -54,7 +54,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public Result<Page<GetUserPageVO>> getPage(GetUserPageDTO dto, PageCondition condition) {
-        Page<GetUserPageVO> pageResult = getPage(dto, condition, (page, queryWrapper) -> this.baseMapper.getPage(page, queryWrapper));
+        Page<GetUserPageVO> pageResult = getPage(dto, condition, (page, queryWrapper) -> this.baseMapper.queryPage(page, queryWrapper));
         return Result.ok(pageResult);
     }
 

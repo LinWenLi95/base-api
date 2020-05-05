@@ -33,6 +33,11 @@ public class SysUser implements Serializable {
     private String nickName;
 
     /**
+     * 用户头像
+     */
+    private String avatar;
+
+    /**
      * 用户名（登录用户名）
      */
     private String username;
@@ -91,6 +96,4 @@ public class SysUser implements Serializable {
      * 是否已删除
      */
     private Boolean isDel;
-
-
 }

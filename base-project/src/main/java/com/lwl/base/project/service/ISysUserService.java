@@ -7,6 +7,7 @@ import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.project.dto.GetUserPageDTO;
 import com.lwl.base.project.entity.SysUser;
 import com.lwl.base.project.vo.GetUserPageVO;
+import com.lwl.base.project.vo.GetUsersInfoVO;
 
 import java.util.Optional;
 
@@ -37,4 +38,9 @@ public interface ISysUserService extends IService<SysUser> {
      * @param condition 分页/排序条件
      */
     Result<Page<GetUserPageVO>> getPage(GetUserPageDTO dto, PageCondition condition);
+
+    /**
+     * 获取登录用户信息
+     */
+    GetUsersInfoVO getLoginUserInfo();
 }

@@ -3,6 +3,7 @@ package com.lwl.base.project.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lwl.base.project.entity.SysRole;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,5 +18,5 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @param userId 用户id
      * @return roleNames列表
      */
-    List<String> queryRoleNamesByUserId(Integer userId);
+    List<String> queryRoleNamesByUserId(Serializable userId);
 }

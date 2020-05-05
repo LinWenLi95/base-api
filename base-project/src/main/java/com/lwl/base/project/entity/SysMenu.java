@@ -9,43 +9,44 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * 系统 权限表
+ * 系统 菜单
  * @author LinWenLi
- * @since 2020-04-23
+ * @since 2020-05-05
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysPermission implements Serializable {
+public class SysMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 权限对应的菜单id（授予角色权限时，要同步将菜单权限授予给角色）
+     * 父菜单id（一级菜单的父id默认为0）
      */
-    private Integer menuId;
+    private Integer parentId;
 
     /**
-     * 标题
+     * 菜单中文名称
      */
-    private String title;
+    private String name;
 
     /**
-     * url
+     * 菜单英文名称
+     */
+    private String enname;
+
+    /**
+     * url地址(用于区别菜单路由及加载页面组件)
      */
     private String url;
 
     /**
-     * 请求类型
-     GET,POST,PUT,DELETE,OPTIONS,HEAD,TRACE,CONNECT
+     * 菜单图标样式
      */
-    private String method;
+    private String icon;
 
     /**
      * 状态 0禁用,1启动
@@ -53,7 +54,12 @@ public class SysPermission implements Serializable {
     private Boolean state;
 
     /**
-     * 描述
+     * 是否已删除
+     */
+    private Boolean isDel;
+
+    /**
+     * 备注
      */
     private String description;
 
@@ -77,9 +83,5 @@ public class SysPermission implements Serializable {
      */
     private LocalDateTime updateTime;
 
-    /**
-     * 是否已删除
-     */
-    private Boolean isDel;
 
 }

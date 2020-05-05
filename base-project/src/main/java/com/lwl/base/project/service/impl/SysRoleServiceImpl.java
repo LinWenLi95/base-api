@@ -6,6 +6,7 @@ import com.lwl.base.project.entity.SysRole;
 import com.lwl.base.project.service.ISysRoleService;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
     @Override
-    public List<String> queryRoleNamesByUserId(Integer userId) {
+    public List<String> queryRoleNamesByUserId(Serializable userId) {
         List<String> roleNames = this.baseMapper.queryRoleNamesByUserId(userId);
         if (roleNames == null) {
             return Collections.emptyList();

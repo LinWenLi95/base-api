@@ -19,7 +19,7 @@ public class JwtUtils {
      * @return String
      */
     public static String getUserId() {
-        return null;
+        return String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
     /**

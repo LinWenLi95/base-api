@@ -7,12 +7,12 @@ import com.lwl.base.api.common.vo.Result;
 import com.lwl.base.project.dto.GetUserPageDTO;
 import com.lwl.base.project.entity.SysUser;
 import com.lwl.base.project.service.ISysUserService;
-import com.lwl.base.project.util.JwtUtils;
 import com.lwl.base.project.vo.GetUserPageVO;
+import com.lwl.base.project.vo.GetUsersInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,14 +28,37 @@ public class SysUserController {
     private ISysUserService sysUserService;
 
     /**
+     * 获取登录用户信息
+     * @return Result<GetUsersInfoVO>
+     */
+    @ApiOperation(value = "查询登录用户信息",notes = "查询用户昵称、头像、角色")
+    @GetMapping("/user/info")
+    public Result<GetUsersInfoVO> getLoginUserInfo() {
+        return Result.ok(sysUserService.getLoginUserInfo());
+    }
+
+    /**
+     * 退出登录
+     * @return Result<GetUsersInfoVO>
+     */
+    @ApiOperation(value = "退出登录",notes = "退出登录")
+    @PostMapping("/logout")
+    public Result<GetUsersInfoVO> logout() {
+        //将reids中的用户登录token删除
+        return Result.ok();
+    }
+
+    /**
      * 查询用户信息
      * @param userId 用户id
      * @return Result<SysUser>
      */
     @ApiOperation(value = "查询用户信息",notes = "查询单条数据")
     @GetMapping("/users/{id}")
-    public Result<SysUser> getUser(@PathVariable("id") String userId) {
-        return Result.ok(sysUserService.getById(userId));
+    public Result<SysUser> getUserById(@PathVariable("id") String userId) {
+        SysUser byId = sysUserService.getById(userId);
+        Assert.notNull(byId);
+        return Result.ok();
     }
 
     @ApiOperation(value = "查询用户信息列表", notes = "查询多条数据")

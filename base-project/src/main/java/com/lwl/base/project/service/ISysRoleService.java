@@ -3,6 +3,7 @@ package com.lwl.base.project.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lwl.base.project.entity.SysRole;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,5 +18,5 @@ public interface ISysRoleService extends IService<SysRole> {
      * @param userId 用户id
      * @return roleNames列表
      */
-    List<String> queryRoleNamesByUserId(Integer userId);
+    List<String> queryRoleNamesByUserId(Serializable userId);
 }

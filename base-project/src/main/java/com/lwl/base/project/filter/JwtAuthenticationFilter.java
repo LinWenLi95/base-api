@@ -11,6 +11,7 @@ import com.lwl.base.project.util.ResponseUtils;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -79,8 +80,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = createAndSaveToken(user.getUsername(), roleNames);
         //token加入响应对象header中
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
+        response.setStatus(HttpStatus.OK.value());
         //统一响应数据格式
-        ResponseUtils.responseResult(response, Result.ok());
+        ResponseUtils.responseResult(response, Result.ok(token));
     }
 
     @Override

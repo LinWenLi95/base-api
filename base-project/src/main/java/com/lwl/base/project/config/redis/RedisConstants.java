@@ -13,5 +13,6 @@ public class RedisConstants {
     public static final String URL_METHOD = "url:%s:method:%s";
     /**存放含路径变量{xx}的url列表，用于将url匹配成通配符*的url字符串*/
     public static final String URL_MATCHERS_KEY = "url:mathers:keys";
-
+    /**获取后台管理的用户信息 redis结构hashmap*/
+    public static final String GET_USERS_INFO_VO = "users_info_vo";
 }

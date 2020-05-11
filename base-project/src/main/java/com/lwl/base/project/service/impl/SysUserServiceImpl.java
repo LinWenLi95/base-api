@@ -12,6 +12,7 @@ import com.lwl.base.api.common.pojo.PageCondition;
 import com.lwl.base.api.common.pojo.SortEnum;
 import com.lwl.base.api.common.util.StringUtil;
 import com.lwl.base.api.common.vo.Result;
+import com.lwl.base.project.config.redis.RedisConstants;
 import com.lwl.base.project.dto.GetUserPageDTO;
 import com.lwl.base.project.entity.SysMenu;
 import com.lwl.base.project.mapper.SysUserMapper;
@@ -55,7 +56,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public Result<Object> deleteById(String userId) {
         //判断是不是自身账号
-        if (userId.equals(JwtUtils.getUserId())) {
+        if (userId.equals(String.valueOf(JwtUtils.getUserId()))) {
             return Result.error("不能删除自身账号");
         }
         //已配置逻辑删除字段，删除为逻辑删除
@@ -72,61 +73,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public GetUsersInfoVO getLoginUserInfo() {
         //从token中取出用户id
-        String userId = JwtUtils.getUserId();
+        Integer userId = JwtUtils.getUserId();
         Assert.notNull(userId,"未获取到用户id，请先登录");
-        //从redis中取
-        GetUsersInfoVO vo = null;//RedisUtils.getT("存放指定用户的用户信息的key");
+        //先从redis中取
+        Object userInfovo = RedisUtils.hget(RedisConstants.GET_USERS_INFO_VO, String.valueOf(userId));
+        GetUsersInfoVO vo = userInfovo == null ? null : JSON.parseObject((String) userInfovo, GetUsersInfoVO.class);
         if (vo == null) {
             //查询用户数据
-            SysUser user = this.queryByUsername(userId);
-//        SysUser user = this.getById(userId);
-            Assert.notNull(user,"未获取到用户信息");
+            SysUser user = this.getById(userId);
+            Assert.notNull(user, "未获取到用户信息");
             //查询用户角色
             List<String> roles = sysRoleService.queryRoleNamesByUserId(user.getId());
             //查询菜单路由
-            List<SysMenu> list = sysMenuService.queryUserMenus(userId);
-            List<MenuRouterVO> menus = getRouterTrees(list);
+            QueryWrapper<SysMenu> wrapper = Wrappers.query();
+            wrapper.in("url", "/home", "/menus", "/settings");
+            List<SysMenu> list = sysMenuService.list(wrapper);
+//            List<SysMenu> list = sysMenuService.queryUserMenus(userId);
+            List<MenuRouterVO> menus = sysMenuService.getRouterTrees(list);
             //组成响应数据
             vo = new GetUsersInfoVO(user.getNickName(), user.getAvatar(), roles, menus);
             // 存入redis
-//            RedisUtils.set("存放指定用户的用户信息的key", vo);
+            RedisUtils.hset(RedisConstants.GET_USERS_INFO_VO, String.valueOf(userId), JSON.toJSONString(vo));
         }
         return vo;
-    }
-
-    /**
-     * 列表转树
-     * @param treeNodes
-     * @return
-     */
-    public List<MenuRouterVO> getRouterTrees(List<SysMenu> treeNodes) {
-        //菜单根节点为0
-        return findChild(0, treeNodes);
-    }
-
-    /**
-     * 获取指定节点的子节点列表
-     * @param parentNodeId 父节点id
-     * @param nodes        节点列表
-     * @return 子节点列表
-     */
-    public List<MenuRouterVO> findChild(Integer parentNodeId, List<SysMenu> nodes) {
-        List<MenuRouterVO> child = new ArrayList<>();
-        // 迭代递归
-        for (SysMenu menu : nodes) {
-            if (menu.getParentId().equals(parentNodeId)) {
-                // 迭代器必须在递归之前执行remove，这样在当次递归时传入的nodes数量才会-1，如果不执行remove，最终循环次数固定
-                MenuRouterVO tree = new MenuRouterVO();
-                tree.setId(menu.getId());
-                tree.setPid(menu.getParentId());
-                tree.setPath(menu.getUrl());
-                tree.setComponent(menu.getUrl());
-                tree.setName(menu.getName());
-                tree.setMeta(menu.getName(), menu.getIcon());
-                tree.setChildren(findChild(menu.getId(), nodes));
-                child.add(tree);
-            }
-        }
-        return child;
     }
 }

@@ -78,6 +78,14 @@ public class RedisUtils {
     }
 
     /**
+     * 获取value（泛型）
+     */
+    public static <T> T getT(String key) {
+        Object data = redisTemplate.opsForValue().get(key);
+        return data == null ? null : (T)data;
+    }
+
+    /**
      * 获取value（String）
      */
     public static String getString(String key) {
@@ -142,11 +150,11 @@ public class RedisUtils {
         return 0L;
     }
 
-    public static void hset(String key, Object hashKey, Object value) {
+    public static void hset(String key, String hashKey, Object value) {
         redisTemplate.opsForHash().put(key, hashKey, value);
     }
 
-    public static Object hget(String key,Object hashKey) {
+    public static Object hget(String key,String hashKey) {
         return redisTemplate.opsForHash().get(key, hashKey);
     }
 

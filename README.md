@@ -16,17 +16,21 @@
 * 添加knife4j
 * 整合mybatisplus
 * 添加mybatisplus代码生成器
+* 从jwt中获取username供请求方法中使用
 
 待处理: 
 * 写一个对应的service代码模板将实体返回值改为optional，列表返回值空时返回空列表
 https://blog.csdn.net/magician_Code/article/details/102950173
-* 从jwt中获取username供请求方法中使用
-
 * 整理前端页面项目，按钮级权限|登录|常用列表查询|表单提交|权限管理等
 * 线程池创建
 * 邮件发送服务
 
 * 动态导入权限表数据
+
+* 菜单管理
+* 用户管理
+* 角色管理（设置权限/设置菜单）
+* 权限管理
 ```java
 @Api(value = "接口类名称",tags = "接口类名称")
 @ApiOperation(value = "接口名称",notes = "接口描述")

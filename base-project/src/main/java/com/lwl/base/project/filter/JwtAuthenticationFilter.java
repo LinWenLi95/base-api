@@ -6,6 +6,7 @@ import com.lwl.base.project.config.redis.RedisConstants;
 import com.lwl.base.project.config.security.SecurityConstants;
 import com.lwl.base.project.entity.SysUser;
 import com.lwl.base.project.service.ISysUserService;
+import com.lwl.base.project.util.ApplicationContextBeanUtil;
 import com.lwl.base.project.util.RedisUtils;
 import com.lwl.base.project.util.ResponseUtils;
 import io.jsonwebtoken.Jwts;
@@ -103,7 +104,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      * @return token
      */
     public String createAndSaveToken(String username, List<String> roleNames) {
-//        SysUser sysUser = userService.queryByUsername(username);
+        ISysUserService userService = ApplicationContextBeanUtil.getBean(ISysUserService.class);
+        SysUser sysUser = userService.queryByUsername(username);
         // 使用JWT_SECRET生成SecretKey
         SecretKey secretKey = Keys.hmacShaKeyFor(SecurityConstants.JWT_SECRET.getBytes());
         String token = Jwts.builder()
@@ -114,7 +116,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .setIssuer(SecurityConstants.TOKEN_ISSUER)
                 .setIssuedAt(new Date())
                 // 角色列表放入header
-//                .claim("uid", sysUser.getId())
+                .claim("uid", sysUser.getId())
                 .claim("rol", roleNames)
                 .signWith(secretKey)
                 .compact();
